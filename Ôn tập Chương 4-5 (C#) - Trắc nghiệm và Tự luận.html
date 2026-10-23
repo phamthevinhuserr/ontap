@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ôn tập Chương 4 &amp; 5 — Trắc nghiệm &amp; Tự luận (C#)</title>
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f4f6fb; --card:#ffffff; --tx:#182033; --mut:#6b7385; --bd:#dfe3ee;
+  --ac:#2563eb; --ac2:#7c3aed; --ok:#15803d; --okbg:#e9f8ee; --no:#dc2626; --nobg:#fdecec;
+  --code:#0f172a; --codetx:#e2e8f0; --chip:#eef2ff; --amber:#78350f; --amberbg:#fffbeb; --amberbd:#fde68a;
+  --sh:0 1px 2px rgba(16,24,40,.05), 0 10px 28px -18px rgba(16,24,40,.35);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0c1120; --card:#161d2e; --tx:#e9edf6; --mut:#98a2b8; --bd:#2a3350;
+    --ac:#60a5fa; --ac2:#a78bfa; --ok:#4ade80; --okbg:#12301f; --no:#f87171; --nobg:#3a1616;
+    --code:#080d18; --codetx:#e2e8f0; --chip:#1e2740; --amber:#fcd34d; --amberbg:#2a2010; --amberbd:#5b3a12;
+    --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0c1120; --card:#161d2e; --tx:#e9edf6; --mut:#98a2b8; --bd:#2a3350;
+  --ac:#60a5fa; --ac2:#a78bfa; --ok:#4ade80; --okbg:#12301f; --no:#f87171; --nobg:#3a1616;
+  --code:#080d18; --codetx:#e2e8f0; --chip:#1e2740; --amber:#fcd34d; --amberbg:#2a2010; --amberbd:#5b3a12;
+  --sh:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -18px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:15.5px/1.62 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:900px;margin:0 auto;padding:18px 16px 60px}
+
+/* ---------- HERO + TABS ---------- */
+.hero{position:relative;overflow:hidden;border-radius:18px;padding:20px 22px 16px;background:linear-gradient(135deg,#2563eb 0%,#4f46e5 48%,#7c3aed 100%);color:#fff;box-shadow:0 18px 40px -22px rgba(37,99,235,.85)}
+.hero:after{content:"";position:absolute;right:-70px;top:-90px;width:260px;height:260px;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 68%);border-radius:50%}
+.heroTop{display:flex;align-items:flex-start;gap:12px;position:relative;z-index:1}
+.hero h1{margin:0 0 6px;font-size:1.38rem;line-height:1.25;letter-spacing:-.2px}
+.hero p{margin:0;color:#dbeafe;font-size:.9rem}
+.themeBtn{flex:0 0 auto;width:38px;height:38px;border-radius:11px;border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.16);color:#fff;font-size:16px;cursor:pointer;transition:.18s}
+.themeBtn:hover{background:rgba(255,255,255,.28)}
+.tabs{position:relative;z-index:1;display:flex;gap:6px;margin-top:16px;background:rgba(255,255,255,.14);padding:5px;border-radius:13px;border:1px solid rgba(255,255,255,.24)}
+.tab{flex:1;border:0;border-radius:9px;padding:9px 10px;background:transparent;color:#e0e7ff;font:700 .86rem system-ui;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:7px}
+.tab span{font-weight:600;opacity:.8;font-size:.78rem}
+.tab:hover{background:rgba(255,255,255,.12)}
+.tab.on{background:#fff;color:#3730a3;box-shadow:0 4px 14px -6px rgba(0,0,0,.4)}
+:root[data-theme="dark"] .tab.on{background:#e9edf6;color:#1e1b4b}
+
+/* ---------- STICKY BAR ---------- */
+.bar{position:sticky;top:0;z-index:30;margin:14px -16px 0;padding:10px 16px 12px;background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--bd)}
+.stats{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.82rem;color:var(--mut)}
+.stats b{color:var(--tx);font-variant-numeric:tabular-nums}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:99px;background:var(--chip);font-weight:600;font-size:.78rem}
+.pill.ok{background:var(--okbg);color:var(--ok)}
+.pill.no{background:var(--nobg);color:var(--no)}
+.spacer{flex:1}
+.track{height:6px;border-radius:99px;background:var(--bd);overflow:hidden;margin-top:9px}
+.track i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .35s ease}
+
+/* ---------- TOOLBAR ---------- */
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0 4px}
+.chip{border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;padding:7px 13px;border-radius:99px;font:600 .82rem system-ui;transition:.18s}
+.chip:hover{border-color:var(--ac);color:var(--ac)}
+.chip.on{background:linear-gradient(135deg,var(--ac),var(--ac2));border-color:transparent;color:#fff;box-shadow:0 6px 16px -8px rgba(37,99,235,.9)}
+.chip .n{opacity:.72;font-weight:500;margin-left:3px}
+.acts{display:flex;gap:8px;margin-left:auto}
+.icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;font-size:15px;transition:.18s}
+.icon:hover{border-color:var(--ac);color:var(--ac)}
+
+/* ---------- CARD ---------- */
+.list{display:flex;flex-direction:column;gap:14px;margin-top:16px}
+.q{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px 16px 14px;box-shadow:var(--sh);border-left:4px solid transparent;transition:border-color .25s;scroll-margin-top:100px}
+.q.ok{border-left-color:var(--ok)}
+.q.no{border-left-color:var(--no)}
+.q.done{border-left-color:var(--ok)}
+.qhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.num{font:700 .78rem/1 ui-monospace,Consolas,monospace;color:#fff;background:var(--ac);padding:5px 8px;border-radius:7px;letter-spacing:.3px}
+.q.ok .num{background:var(--ok)}.q.no .num{background:var(--no)}.q.done .num{background:var(--ok)}
+.badge{font:600 .7rem/1 system-ui;padding:5px 8px;border-radius:99px;background:var(--chip);color:var(--mut);border:1px solid var(--bd)}
+.badge.tr{background:#fff7ed;color:#c2410c;border-color:#fed7aa}
+.badge.org{background:var(--amberbg);color:var(--amber);border-color:var(--amberbd)}
+:root[data-theme="dark"] .badge.tr{background:#33230f;color:#fdba74;border-color:#5b3a12}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .badge.tr{background:#33230f;color:#fdba74;border-color:#5b3a12}
+}
+.qtext{font-weight:600;font-size:.98rem;margin:2px 0 10px;white-space:pre-line}
+
+/* ---------- CODE ---------- */
+pre.code{margin:0 0 11px;background:var(--code);color:var(--codetx);border-radius:10px;padding:11px 13px;overflow-x:auto;font:13.5px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;border:1px solid rgba(255,255,255,.08)}
+pre.code::-webkit-scrollbar{height:6px}
+pre.code::-webkit-scrollbar-thumb{background:#334155;border-radius:9px}
+.kw{color:#c084fc}.st{color:#86efac}.nm{color:#fdba74}.cm{color:#64748b;font-style:italic}
+
+/* ---------- TRẮC NGHIỆM ---------- */
+.tip{display:flex;gap:8px;align-items:flex-start;margin:0 0 11px;padding:9px 12px;border-radius:10px;background:var(--amberbg);border:1px solid var(--amberbd);color:var(--amber);font-size:.85rem;line-height:1.55}
+.tip .bulb{flex:0 0 auto;font-size:.95rem;line-height:1.4}
+.tip b{font-weight:800}
+body.hidetips .tip{display:none}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;padding:10px 12px;border-radius:11px;border:1.5px solid var(--bd);background:transparent;color:var(--tx);font:inherit;cursor:pointer;transition:border-color .16s, background-color .16s;line-height:1.5}
+.opt:hover:not(.done){border-color:var(--ac);background:color-mix(in srgb,var(--ac) 7%,transparent)}
+.opt .ltr{flex:0 0 24px;height:24px;display:grid;place-items:center;border-radius:7px;background:var(--chip);font:700 .78rem/1 ui-monospace,monospace;color:var(--mut);transition:.16s}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.right .ltr{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--no);background:var(--nobg)}
+.opt.wrong .ltr{background:var(--no);color:#fff}
+.opt.dim{opacity:.55}
+.opt.done{cursor:default}
+.opt .mark{margin-left:auto;font-weight:800}
+.opt.right .mark{color:var(--ok)}.opt.wrong .mark{color:var(--no)}
+.exp{margin-top:11px;border-radius:11px;padding:11px 13px;font-size:.89rem;line-height:1.6;border:1px dashed transparent;animation:fade .3s ease}
+.exp.good{background:var(--okbg);border-color:color-mix(in srgb,var(--ok) 40%,transparent)}
+.exp.bad{background:var(--nobg);border-color:color-mix(in srgb,var(--no) 40%,transparent)}
+.exp .hd{font-weight:800;font-size:.85rem;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.exp.good .hd{color:var(--ok)}.exp.bad .hd{color:var(--no)}
+.exp p{margin:0;color:var(--tx)}
+@keyframes fade{from{transform:translateY(-4px)}to{transform:none}}
+.shake{animation:shk .34s}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* ---------- TỰ LUẬN ---------- */
+.hint{display:flex;gap:8px;margin:0 0 12px;padding:9px 12px;border-radius:10px;background:var(--amberbg);border:1px solid var(--amberbd);color:var(--amber);font-size:.85rem;line-height:1.55}
+.hint b{font-weight:800}
+.lbl{display:block;font:700 .78rem system-ui;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;margin:0 0 6px}
+textarea{width:100%;min-height:110px;resize:vertical;padding:11px 13px;border-radius:11px;border:1.5px solid var(--bd);background:var(--bg);color:var(--tx);font:13.5px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;outline:none;transition:border-color .18s}
+textarea:focus{border-color:var(--ac)}
+textarea::placeholder{color:var(--mut);opacity:.75}
+.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px}
+.btn{border:0;border-radius:9px;padding:8px 14px;font:700 .85rem system-ui;background:var(--ac);color:#fff;cursor:pointer;transition:.18s}
+.btn:hover{filter:brightness(1.08)}
+.chk{display:inline-flex;align-items:center;gap:7px;font-size:.84rem;color:var(--mut);cursor:pointer;user-select:none}
+.chk input{width:16px;height:16px;accent-color:var(--ok);cursor:pointer}
+.cnt{margin-left:auto;font-size:.75rem;color:var(--mut);font-variant-numeric:tabular-nums}
+.sol{margin-top:12px;border-top:1px dashed var(--bd);padding-top:12px;animation:fade .28s ease}
+.solhd{display:flex;align-items:center;gap:8px;font:800 .82rem system-ui;color:var(--ok);margin-bottom:8px}
+.copy{margin-left:auto;border:1px solid var(--bd);background:var(--card);color:var(--mut);border-radius:7px;padding:4px 10px;font:600 .74rem system-ui;cursor:pointer}
+.copy:hover{border-color:var(--ac);color:var(--ac)}
+.out{background:var(--bg);border:1px solid var(--bd);border-radius:9px;padding:9px 12px;font:12.5px/1.6 ui-monospace,Consolas,monospace;color:var(--mut);white-space:pre-wrap;margin-bottom:10px}
+.out b{color:var(--tx);font-weight:700}
+.solnote{margin:0 0 8px;font-size:.88rem;line-height:1.62}
+.solnote b{color:var(--ac)}
+.err{margin:0;font-size:.86rem;line-height:1.6;color:var(--no);background:var(--nobg);border-radius:9px;padding:9px 12px}
+.err b{font-weight:800}
+.soltext{font-size:.88rem;overflow-x:auto}
+.soltext code{background:var(--chip);padding:1px 6px;border-radius:5px;font:12.5px ui-monospace,Consolas,monospace;color:var(--tx)}
+table.cmp{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:.84rem}
+table.cmp th,table.cmp td{border:1px solid var(--bd);padding:7px 9px;text-align:left;vertical-align:top}
+table.cmp th{background:var(--chip);font-weight:700}
+ul.tight{margin:6px 0 10px;padding-left:20px;font-size:.88rem}
+ul.tight li{margin:4px 0}
+
+/* ---------- PHỤ ---------- */
+.empty{text-align:center;color:var(--mut);padding:34px 10px;font-size:.92rem}
+.card2{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px 18px;margin-top:18px;box-shadow:var(--sh)}
+.card2 h2{font-size:1rem;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.card2 h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--ac)}
+.links{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:640px){.links{grid-template-columns:1fr}}
+.links a{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;border:1px solid var(--bd);color:var(--tx);text-decoration:none;font-size:.85rem;transition:.16s;background:var(--bg)}
+.links a:hover{border-color:var(--ac);color:var(--ac);transform:translateX(2px)}
+details.cheat{margin-top:18px;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:0;box-shadow:var(--sh);overflow:hidden}
+details.cheat summary{cursor:pointer;padding:15px 18px;font-weight:700;font-size:.95rem;list-style:none;display:flex;align-items:center;gap:9px}
+details.cheat summary::-webkit-details-marker{display:none}
+details.cheat summary:after{content:"▾";margin-left:auto;color:var(--mut);transition:.2s}
+details.cheat[open] summary:after{transform:rotate(180deg)}
+details.cheat .body{padding:0 18px 18px;font-size:.87rem}
+details.cheat h3{font-size:.86rem;margin:14px 0 7px;color:var(--ac);text-transform:uppercase;letter-spacing:.4px}
+details.cheat ul{margin:0;padding-left:20px}
+details.cheat li{margin:5px 0}
+details.cheat code{background:var(--chip);padding:1px 6px;border-radius:5px;font:13px ui-monospace,Consolas,monospace}
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(62px,1fr));gap:6px;margin:2px 0 4px}
+.kitem{display:flex;justify-content:space-between;align-items:center;gap:4px;background:var(--chip);border:1px solid var(--bd);border-radius:7px;padding:3px 8px;font:700 .8rem ui-monospace,Consolas,monospace}
+.kitem i{font-style:normal;font-weight:500;color:var(--mut);font-size:.72rem}
+#keyGrid h3{font-size:.82rem;margin:12px 0 7px;color:var(--ac)}
+.foot{text-align:center;color:var(--mut);font-size:.78rem;margin-top:22px;line-height:1.7}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#111827;color:#fff;padding:10px 18px;border-radius:99px;font-size:.85rem;font-weight:600;transition:.25s;z-index:99;box-shadow:0 10px 30px -10px rgba(0,0,0,.6)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:520px){
+  .hero h1{font-size:1.16rem}.wrap{padding:14px 12px 50px}
+  .bar{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
+  .q{padding:14px 13px}pre.code{font-size:12.5px}
+  .tab{font-size:.8rem;padding:8px 6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="heroTop">
+      <div style="flex:1">
+        <h1>Ôn tập Chương 4 &amp; 5 — C#</h1>
+        <p><b>128 câu trắc nghiệm</b> (bấm là biết đúng/sai ngay) + <b>15 câu tự luận</b> có bài giải mẫu — đúng theo 3 form giáo viên giao.</p>
+      </div>
+      <button class="themeBtn" id="btnTheme" title="Sáng / tối">🌙</button>
+    </div>
+    <div class="tabs">
+      <button class="tab on" data-view="mc">✅ Trắc nghiệm <span>128</span></button>
+      <button class="tab" data-view="tl">📝 Tự luận <span>15</span></button>
+    </div>
+  </header>
+
+  <!-- ================= TRẮC NGHIỆM ================= -->
+  <section id="view-mc">
+    <div class="bar">
+      <div class="stats">
+        <span class="pill" id="mc-done">Đã làm 0/128</span>
+        <span class="pill ok" id="mc-ok">Đúng 0</span>
+        <span class="pill no" id="mc-no">Sai 0</span>
+        <span class="spacer"></span>
+        <span id="mc-pct"><b>0%</b> chính xác</span>
+      </div>
+      <div class="track"><i id="mc-bar"></i></div>
+    </div>
+
+    <div class="tools">
+      <button class="chip on" data-f="all">Tất cả<span class="n" data-cnt="all"></span></button>
+      <button class="chip" data-f="c4">Chương 4<span class="n" data-cnt="c4"></span></button>
+      <button class="chip" data-f="c5">Chương 5<span class="n" data-cnt="c5"></span></button>
+      <button class="chip" data-f="for">For &amp; bài tập<span class="n" data-cnt="for"></span></button>
+      <button class="chip" data-f="trace">Truy vết<span class="n" data-cnt="trace"></span></button>
+      <button class="chip" data-f="wrong">Câu sai<span class="n" data-cnt="wrong"></span></button>
+      <button class="chip on" id="mc-tips" title="Bật/tắt mẹo làm bài">💡 Mẹo: Bật</button>
+      <div class="acts">
+        <button class="icon" id="mc-shuffle" title="Trộn thứ tự câu">🔀</button>
+        <button class="icon" id="mc-reset" title="Làm lại từ đầu">↺</button>
+      </div>
+    </div>
+
+    <main class="list" id="mc-list"></main>
+
+    <section class="card2">
+      <h2><span class="dot"></span>Mô phỏng tham khảo — không có câu hỏi nào trong quiz lấy từ đây</h2>
+      <div class="links">
+        <a href="M%C3%B4%20ph%E1%BB%8Fng%20v%C3%B2ng%20l%E1%BA%B7p%20for_%20t%E1%BB%95ng%201%20%C4%91%E1%BA%BFn%20n%20(C%23).html">▸ for: tổng 1 → n</a>
+        <a href="M%C3%B4%20ph%E1%BB%8Fng%20for_%20t%C3%ADch%20c%C3%A1c%20b%E1%BB%99i%20c%E1%BB%A7a%203%20t%E1%BB%AB%203%20%C4%91%E1%BA%BFn%20n%20(C%23).html">▸ for: tích bội của 3</a>
+        <a href="M%C3%B4%20ph%E1%BB%8Fng%20v%C3%B2ng%20l%E1%BA%B7p%20for_%20in%20c%C3%A1c%20%C6%B0%E1%BB%9Bc%20s%E1%BB%91%20c%E1%BB%A7a%20n%20(C%23).html">▸ for: in ước số của n</a>
+        <a href="M%C3%B4%20ph%E1%BB%8Fng%20while_%20t%C3%ACm%20UCLN%20v%C3%A0%20BCNN%20(C%23).html">▸ while: UCLN &amp; BCNN</a>
+        <a href="M%C3%B4%20ph%E1%BB%8Fng%20while_%20t%C3%ADnh%20giai%20th%E1%BB%ABa%20n!%20(C%23).html">▸ while: giai thừa n!</a>
+        <a href="M%C3%B4%20ph%E1%BB%8Fng%20gi%E1%BA%A3i%20ph%C6%B0%C6%A1ng%20tr%C3%ACnh%20b%E1%BA%ADc%20nh%E1%BA%A5t%20ax%20%2B%20b%20%3D%200%20(C%23).html">▸ if-else: ax + b = 0</a>
+        <a href="M%C3%B4%20ph%E1%BB%8Fng%20if%20-%20else%20if%20-%20else_%20x%E1%BA%BFp%20lo%E1%BA%A1i%20h%E1%BB%8Dc%20l%E1%BB%B1c%20(C%23).html">▸ if-else if: xếp loại</a>
+        <a href="M%C3%B4%20ph%E1%BB%8Fng%20if%20-%20else%20l%E1%BB%93ng%20nhau%20(c%C3%B3%20%C4%91%C3%A1nh%20s%E1%BB%91%20d%C3%B2ng%20va%20g%C3%A0i%20lu%E1%BB%93ng).html">▸ if-else lồng nhau</a>
+      </div>
+    </section>
+
+    <details class="cheat">
+      <summary>🔑 Bảng đáp án nhanh — đối chiếu với form</summary>
+      <div class="body">
+        <div id="keyGrid"></div>
+        <p style="color:var(--mut);font-size:.8rem;margin:12px 0 0">
+          Đánh số liên tục theo thứ tự câu của từng form, giữ nguyên thứ tự phương án A→D như đề gốc.
+          (Form 1 gốc nhảy số 31–32 nên từ câu 31 trở đi, số ở đây lệch 2 so với số trong đề.)
+        </p>
+      </div>
+    </details>
+
+    <details class="cheat">
+      <summary>📘 Sổ tay lý thuyết nhanh (Chương 4 &amp; 5)</summary>
+      <div class="body">
+        <h3>1. Bốn vòng lặp</h3>
+        <ul>
+          <li><code>while (đk) { }</code> — kiểm tra điều kiện <b>trước</b>, có thể chạy <b>0 lần</b>.</li>
+          <li><code>do { } while (đk);</code> — kiểm tra <b>sau</b>, luôn chạy <b>ít nhất 1 lần</b>, kết thúc bằng dấu <code>;</code>.</li>
+          <li><code>for (khởi tạo; đk; bước nhảy) { }</code> — thứ tự: khởi tạo → đk → thân → bước nhảy → đk → … Dùng khi <b>biết trước số lần lặp</b>.</li>
+          <li><code>foreach (var x in tập hợp) { }</code> — duyệt từng phần tử, <b>không có chỉ số</b>, <b>không sửa được</b> giá trị phần tử.</li>
+          <li>Điều kiện của <code>while</code> / <code>do-while</code> / <code>if</code> phải là <b>bool</b> (C# không cho <code>while(1)</code>).</li>
+        </ul>
+        <h3>2. break / continue</h3>
+        <ul>
+          <li><code>break</code> — thoát hẳn vòng lặp (hoặc thoát <code>switch</code>) gần nhất.</li>
+          <li><code>continue</code> — bỏ qua phần còn lại của lần lặp hiện tại, sang lần kế tiếp.</li>
+          <li>Quên cập nhật biến điều kiện trong <code>while</code> → <b>vòng lặp vô hạn</b>.</li>
+        </ul>
+        <h3>3. Rẽ nhánh</h3>
+        <ul>
+          <li><code>if (đk) { }</code> — điều kiện là biểu thức <b>bool</b>; C# <b>không</b> có <code>then</code>.</li>
+          <li><code>if … else if … else</code> — mỗi nhánh chỉ có <b>một</b> <code>else</code>, và <code>else</code> luôn gắn với <code>if</code> gần nhất chưa có else.</li>
+          <li><code>switch (biến) { case gt: … break; default: … }</code> — chỉ dùng với <b>int, char, string, enum…</b>; <b>không</b> dùng với <code>double/float/decimal</code>, không dùng điều kiện phức tạp (<code>x &gt; 5</code>).</li>
+          <li>Thiếu <code>break</code> → <b>fall-through</b>: chạy tiếp các case bên dưới.</li>
+        </ul>
+        <h3>4. Mẹo truy vết code</h3>
+        <ul>
+          <li>Kẻ bảng: <b>lần lặp | biến | điều kiện | kết quả</b> — chạy tay từng bước, đừng đoán.</li>
+          <li>Chú ý <b>tiền tố/hậu tố</b>: <code>x++</code> dùng giá trị rồi mới tăng, <code>++x</code> tăng rồi mới dùng.</li>
+          <li>Chú ý <b>điều kiện biên</b>: <code>&lt;</code> hay <code>&lt;=</code>, bước nhảy <code>i++</code> hay <code>i+=2</code>.</li>
+          <li><code>int</code> chia nguyên: <code>5/2 = 2</code>; <code>%</code> là chia lấy dư — dùng để kiểm tra chẵn/lẻ, ước số, chữ số.</li>
+        </ul>
+      </div>
+    </details>
+
+    <p class="foot">
+      Toàn bộ <b>128 câu</b> lấy từ <b>3 form ôn tập</b> của giáo viên (while/do-while/foreach · if-else/switch · for).<br>
+      8 bài mô phỏng chỉ là tài liệu tham khảo — <b>không có câu hỏi nào lấy từ đó</b>.<br>
+      Đáp án được kiểm chứng theo chuẩn C# (Google Form chỉ công khai đề, <b>không</b> công khai bảng đáp án).<br>
+      Phím tắt: <b>A / B / C / D</b> hoặc <b>1 2 3 4</b> để chọn đáp án cho câu đang xem.
+    </p>
+  </section>
+
+  <!-- ================= TỰ LUẬN ================= -->
+  <section id="view-tl" hidden>
+    <div class="bar">
+      <div class="stats">
+        <span class="pill" id="tl-write">Đã viết 0/15</span>
+        <span class="pill ok" id="tl-done">Hoàn thành 0/15</span>
+        <span class="spacer"></span>
+        <span id="tl-pct"><b>0%</b> tiến độ</span>
+      </div>
+      <div class="track"><i id="tl-bar"></i></div>
+    </div>
+
+    <div class="tools">
+      <button class="chip on" data-f="all">Tất cả<span class="n">15</span></button>
+      <button class="chip" data-f="c4">Chương 4<span class="n">5</span></button>
+      <button class="chip" data-f="for">Vòng lặp for<span class="n">5</span></button>
+      <button class="chip" data-f="c5">Chương 5<span class="n">5</span></button>
+      <div class="acts">
+        <button class="chip" id="tl-openall">Mở tất cả bài giải</button>
+        <button class="chip" id="tl-download">Tải bài làm</button>
+        <button class="icon" id="tl-reset" title="Xoá bài làm">↺</button>
+      </div>
+    </div>
+
+    <main class="list" id="tl-list"></main>
+
+    <p class="foot">
+      Đề bài lấy nguyên văn từ 3 form ôn tập của giáo viên (Câu 46–50 mỗi form).<br>
+      Bài làm được lưu tự động trong trình duyệt của bạn — không gửi đi đâu cả.
+    </p>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const BANK = [
+/* ---------------- CHƯƠNG 4 : WHILE / DO-WHILE / FOREACH ---------------- */
+{t:'c4',q:'Câu lệnh while chạy khi nào?',o:['Khi điều kiện sai','Khi điều kiện đúng','Chỉ một lần duy nhất','Không cần điều kiện'],a:1,
+ e:'while kiểm tra điều kiện trước mỗi lần lặp: điều kiện còn đúng thì thân vòng lặp còn được thực hiện.'},
+{t:'c4',q:'Sự khác biệt chính giữa while và do-while là gì?',o:['do-while kiểm tra điều kiện trước','while luôn chạy ít nhất 1 lần','do-while luôn chạy ít nhất 1 lần','Cả hai không khác nhau'],a:2,
+ e:'do-while thực hiện khối lệnh trước rồi mới kiểm tra điều kiện, nên luôn chạy ít nhất 1 lần. while kiểm tra trước nên có thể không chạy lần nào.'},
+{t:'c4',q:'Vòng lặp foreach dùng để:',o:['Lặp qua chỉ số mảng','Lặp qua các phần tử trong tập hợp','Lặp khi điều kiện đúng','Lặp khi chưa biết số phần tử'],a:1,
+ e:'foreach duyệt lần lượt từng phần tử của mảng / List / string… mà không cần quan tâm chỉ số.'},
+{t:'c4',q:'Điều kiện của vòng lặp while phải có kiểu dữ liệu gì?',o:['int','string','bool','float'],a:2,
+ e:'Trong C#, điều kiện vòng lặp là biểu thức bool (true/false). Viết while(1) sẽ báo lỗi biên dịch.'},
+{t:'c4',q:'Câu lệnh nào đúng với do-while?',o:['while (x > 0) {...} while;','do {...} while (x > 0);','do (x > 0) {...};','while do {...}'],a:1,
+ e:'Cú pháp chuẩn: do { khối lệnh } while (điều kiện);  — bắt buộc có dấu chấm phẩy ở cuối.'},
+{t:'c4',tr:true,c:'int i = 0;\nwhile (i < 3)\n{\n    Console.Write(i);\n    i++;\n}',q:'Kết quả đoạn mã sau là gì?',o:['012','123','321','Lỗi biên dịch'],a:0,
+ e:'i chạy 0, 1, 2 rồi dừng khi i = 3. Vì in i TRƯỚC khi tăng nên kết quả là 012.'},
+{t:'c4',q:'Câu lệnh foreach KHÔNG thể sử dụng với:',o:['Mảng','Danh sách List','Một biến int','Chuỗi (string)'],a:2,
+ e:'foreach cần một tập hợp (mảng, List, string…). Một biến int đơn lẻ không phải tập hợp nên không duyệt được.'},
+{t:'c4',q:'do-while luôn thực hiện ít nhất bao nhiêu lần?',o:['0','1','2','Phụ thuộc điều kiện'],a:1,
+ e:'Khối lệnh do chạy trước, điều kiện kiểm tra sau → tối thiểu 1 lần, kể cả khi điều kiện sai ngay từ đầu.'},
+{t:'c4',tr:true,c:'int x = 5;\ndo { x--; } while (x > 0);\nConsole.Write(x);',q:'Kết quả của đoạn mã trên là gì?',o:['0','1','5','-1'],a:0,
+ e:'x giảm dần 5→4→3→2→1→0. Khi x = 0 thì 0 > 0 sai, vòng lặp dừng và in ra 0.'},
+{t:'c4',q:'Điều kiện dừng của vòng while được kiểm tra ở đâu?',o:['Sau khi thực hiện khối lệnh','Trước khi thực hiện khối lệnh','Trong thân vòng lặp','Không cần kiểm tra'],a:1,
+ e:'while là vòng lặp kiểm tra trước (pre-test). do-while mới kiểm tra sau (post-test).'},
+{t:'c4',q:'Vòng lặp foreach hoạt động tốt nhất với:',o:['Mảng và danh sách','Biến nguyên','Biến logic','Biến đơn lẻ'],a:0,
+ e:'foreach sinh ra để duyệt tập hợp: mảng, List, ArrayList, string, Dictionary…'},
+{t:'c4',q:'Lệnh break trong vòng lặp có tác dụng gì?',o:['Kết thúc toàn chương trình','Dừng vòng lặp hiện tại','Tăng biến vòng lặp','In ra giá trị cuối'],a:1,
+ e:'break thoát khỏi vòng lặp gần nhất đang chứa nó (không kết thúc chương trình như Environment.Exit).'},
+{t:'c4',q:'Vòng lặp while chạy khi nào?',o:['Khi biến đếm bằng 0','Khi điều kiện còn đúng','Khi gặp lệnh break','Khi biến là số nguyên'],a:1,
+ e:'Điều kiện còn đúng thì còn lặp; sai thì thoát. Số lần lặp không phụ thuộc giá trị 0 hay kiểu dữ liệu.'},
+{t:'c4',q:'Câu nào là cú pháp đúng của foreach trong C#?',o:['foreach (var item : collection)','foreach item in collection','foreach (var item in collection)','for each (item in collection)'],a:2,
+ e:'C# dùng từ khóa "in" và bắt buộc có ngoặc đơn: foreach (var item in collection) { }'},
+{t:'c4',q:'Do-while phù hợp khi nào?',o:['Khi muốn chạy ít nhất một lần','Khi điều kiện sai ngay từ đầu','Khi không cần điều kiện','Khi chỉ dùng biến bool'],a:0,
+ e:'Điển hình là menu, nhập liệu: phải hỏi/ thực hiện một lần rồi mới xét có lặp tiếp không.'},
+{t:'c4',q:'Khi nào nên dùng vòng lặp while thay vì for?',o:['Khi biết rõ số lần lặp','Khi chưa biết số lần lặp','Khi không dùng biến','Khi duyệt mảng'],a:1,
+ e:'for hợp khi biết trước số vòng; while hợp khi lặp đến khi gặp điều kiện (nhập đúng, tìm thấy, chia hết…).'},
+{t:'c4',q:'Câu lệnh continue trong while sẽ:',o:['Kết thúc vòng lặp','Bỏ qua lần lặp hiện tại','Nhảy ra khỏi vòng lặp','Tăng biến đếm'],a:1,
+ e:'continue bỏ phần còn lại của lần lặp hiện tại và quay lại kiểm tra điều kiện. Muốn thoát hẳn phải dùng break.'},
+{t:'c4',tr:true,c:'int[] arr = {1, 2, 3};\nforeach (int x in arr)\n    Console.Write(x);',q:'Kết quả đoạn mã sau là gì?',o:['123','321','0','Lỗi biên dịch'],a:0,
+ e:'foreach duyệt theo thứ tự trong mảng: 1, 2, 3 → in ra 123.'},
+{t:'c4',q:'foreach phù hợp để làm gì?',o:['Duyệt mảng từ cuối đến đầu','Duyệt từng phần tử theo thứ tự','Gán lại từng phần tử','Nhập dữ liệu'],a:1,
+ e:'foreach chỉ duyệt xuôi theo thứ tự và chỉ đọc. Muốn duyệt ngược hoặc gán lại phải dùng for.'},
+{t:'c4',q:'Đâu là điểm khác biệt giữa for và foreach?',o:['foreach không dùng chỉ số','foreach luôn nhanh hơn','foreach dùng được cho mọi biến','Không có gì khác'],a:0,
+ e:'foreach không có biến chỉ số nên không biết vị trí phần tử, không duyệt ngược, không sửa phần tử.'},
+{t:'c4',q:'Khi dùng while mà không cập nhật điều kiện sẽ gây ra:',o:['Lỗi biên dịch','Vòng lặp bị bỏ qua','Vòng lặp vô hạn','Dừng ngay lập tức'],a:2,
+ e:'Chương trình vẫn biên dịch bình thường nhưng điều kiện mãi đúng → treo máy (vòng lặp vô hạn).'},
+{t:'c4',q:'Điểm khác biệt lớn nhất giữa while và do-while là gì?',o:['while luôn chạy ít nhất 1 lần','do-while có thể không chạy lần nào','do-while kiểm tra điều kiện sau khi thực hiện','Không có khác biệt'],a:2,
+ e:'Vị trí kiểm tra điều kiện quyết định: while kiểm tra trước, do-while kiểm tra sau.'},
+{t:'c4',q:'Khi dùng foreach, bạn có thể thay đổi giá trị của phần tử không?',o:['Có','Không','Chỉ với mảng int','Chỉ với string'],a:1,
+ e:'Biến lặp trong foreach là chỉ đọc. Gán x = 10 bên trong sẽ báo lỗi biên dịch.'},
+{t:'c4',q:'Câu nào KHÔNG đúng với vòng lặp while?',o:['Có thể không thực hiện lần nào','Điều kiện phải là boolean','Kiểm tra điều kiện sau khi chạy','Có thể tạo vòng lặp vô hạn'],a:2,
+ e:'"Kiểm tra điều kiện sau khi chạy" là đặc điểm của do-while, không phải while.'},
+{t:'c4',q:'Vòng lặp nào dưới đây đảm bảo khối lệnh được thực hiện ít nhất 1 lần?',o:['while','for','foreach','do-while'],a:3,
+ e:'Chỉ do-while đảm bảo điều này vì thân lệnh chạy trước khi kiểm tra điều kiện.'},
+{t:'c4',q:'Cú pháp đúng của vòng while là:',o:['while x > 0 {}','while (x > 0) {}','while (x > 0);','while: x > 0'],a:1,
+ e:'Điều kiện phải nằm trong ngoặc đơn. Đáp án C có dấu ; ngay sau while → thân lệnh rỗng, dễ gây lặp vô hạn.'},
+{t:'c4',q:'Lệnh break được dùng trong:',o:['if','vòng lặp','namespace','class'],a:1,
+ e:'break dùng trong vòng lặp và trong switch. Trong if đứng một mình thì không hợp lệ.'},
+{t:'c4',q:'Vòng lặp nào thường dùng để duyệt mảng?',o:['while','do-while','foreach','switch'],a:2,
+ e:'foreach là lựa chọn tự nhiên nhất khi cần duyệt toàn bộ phần tử của mảng.'},
+{t:'c4',q:'Lệnh continue trong vòng lặp có tác dụng:',o:['Dừng vòng lặp','Chuyển sang lần lặp kế tiếp','Thoát khỏi phương thức','Thoát khỏi chương trình'],a:1,
+ e:'continue bỏ qua phần còn lại của lần lặp hiện tại và sang lần lặp kế tiếp.'},
+{t:'c4',q:'Vòng lặp foreach có sử dụng chỉ số không?',o:['Có','Không','Tuỳ kiểu dữ liệu','Khi kết hợp với do-while'],a:1,
+ e:'foreach không có biến chỉ số. Cần chỉ số thì phải tự đếm hoặc dùng for.'},
+{t:'c4',q:'Có thể dùng break trong vòng lặp nào sau đây?',o:['while','do-while','foreach','Tất cả các vòng lặp'],a:3,
+ e:'break dùng được trong mọi cấu trúc lặp của C#: while, do-while, for, foreach.'},
+{t:'c4',q:'Khi nào nên dùng foreach thay vì for?',o:['Khi cần cập nhật từng phần tử','Khi cần duyệt qua tất cả phần tử và không cần chỉ số','Khi cần dùng break','Khi dùng với biến int'],a:1,
+ e:'Duyệt trọn tập hợp, chỉ đọc → foreach gọn và ít lỗi chỉ số hơn.'},
+{t:'c4',q:'Vòng lặp nào kiểm tra điều kiện trước khi chạy?',o:['do-while','while','foreach','Không vòng nào'],a:1,
+ e:'while (và for) kiểm tra điều kiện trước; do-while kiểm tra sau.'},
+{t:'c4',tr:true,c:'int x = 3;\nwhile (x-- > 0)\n{ /* thân lệnh */ }',q:'Đoạn mã trên chạy bao nhiêu lần?',o:['2','3','4','Vô hạn'],a:1,
+ e:'x-- > 0 lấy giá trị cũ để so sánh rồi mới giảm: 3>0, 2>0, 1>0 → đúng 3 lần; lần thứ 4 là 0>0 sai.'},
+{t:'c4',q:'Cú pháp foreach duyệt danh sách tên là list đúng là:',o:['foreach (string x : list)','foreach (x in list)','foreach (var x in list)','for each x in list'],a:2,
+ e:'Đúng chuẩn C#: foreach (var x in list) { }'},
+{t:'c4',q:'Lỗi phổ biến khi dùng while là gì?',o:['Không khai báo biến','Không cập nhật điều kiện dừng','Thiếu dấu chấm phẩy','Sai kiểu dữ liệu'],a:1,
+ e:'Quên tăng/giảm biến điều kiện là nguyên nhân số 1 gây vòng lặp vô hạn.'},
+{t:'c4',q:'Câu lệnh do-while kết thúc bằng?',o:['}','endwhile','while(...);','loop'],a:2,
+ e:'Kết thúc bằng while (điều kiện); — dấu chấm phẩy là bắt buộc, thiếu sẽ lỗi biên dịch.'},
+{t:'c4',q:'Khi nào nên dùng vòng lặp do-while?',o:['Khi cần kiểm tra điều kiện sau khi thực hiện','Khi không có điều kiện','Khi không rõ kiểu dữ liệu','Khi dùng biến toàn cục'],a:0,
+ e:'Khi công việc chắc chắn phải làm ít nhất một lần rồi mới xét tiếp (menu, nhập lại…).'},
+{t:'c4',q:'Câu lệnh nào sai khi dùng foreach?',o:['foreach (int x in nums)','foreach (var s in list)','foreach int x in array','foreach (char c in text)'],a:2,
+ e:'Thiếu ngoặc đơn và thiếu từ khóa in → sai cú pháp.'},
+{t:'c4',q:'Điều kiện trong while phải là:',o:['int','string','bool','void'],a:2,
+ e:'C# không tự đổi số sang bool như C/C++: điều kiện buộc phải là bool.'},
+{t:'c4',q:'Đâu là lựa chọn đúng cho cấu trúc lặp vô hạn?',o:['while (true)','while (1)','while (\'true\')','while (== true)'],a:0,
+ e:'while (true) hợp lệ. while (1) sai vì int không phải bool; \'true\' là char; "== true" thiếu vế trái.'},
+{t:'c4',q:'Vòng lặp foreach dùng tốt khi:',o:['Biết chính xác số phần tử','Không cần chỉ số và không sửa phần tử','Duyệt mảng rỗng','Gán giá trị mới cho từng phần tử'],a:1,
+ e:'foreach chỉ đọc, không có chỉ số → phù hợp khi chỉ cần xem/ tính toán trên từng phần tử.'},
+{t:'c4',q:'Câu nào KHÔNG phù hợp với foreach?',o:['foreach (int x in danhSach)','foreach (string s in chuoi)','foreach (bool b in flag)','foreach (int i = 0; i < 10; i++)'],a:3,
+ e:'Đáp án D là cú pháp của for, không phải foreach.'},
+
+/* ---------------- CHƯƠNG 5 : IF - ELSE / SWITCH - CASE ---------------- */
+{t:'c5',tr:true,c:'int x = 3;\nswitch (x)\n{\n    case 1:\n    case 2:\n    case 3:\n        Console.WriteLine("Matched");\n        break;\n    default:\n        Console.WriteLine("Not matched");\n        break;\n}',q:'Kết quả đoạn code sau là gì?',o:['Not matched','Matched','Error','Không in gì cả'],a:1,
+ e:'case 1, 2, 3 dùng chung một khối lệnh (gom case). x = 3 khớp case 3 → in "Matched".'},
+{t:'c5',q:'Kiểu dữ liệu nào KHÔNG dùng được trong switch?',o:['int','string','double','char'],a:2,
+ e:'switch không nhận số thực (double/float/decimal). Chỉ nhận kiểu rời rạc: int, char, string, bool, enum.'},
+{t:'c5',q:'Cấu trúc điều kiện if trong C# viết đúng là?',o:['if (a > b) then Console.WriteLine("a lớn hơn b");','if a > b Console.WriteLine("a lớn hơn b");','if (a > b) { Console.WriteLine("a lớn hơn b"); }','if {a > b} Console.WriteLine("a lớn hơn b");'],a:2,
+ e:'C# không có từ khóa then, điều kiện phải đặt trong ngoặc đơn.'},
+{t:'c5',tr:true,c:'int a = 10, b = 15;\nif (a > b)\n    Console.WriteLine("A");\nelse\n    Console.WriteLine("B");',q:'Kết quả của đoạn mã sau là gì?',o:['A','B','10','15'],a:1,
+ e:'10 > 15 sai nên nhảy vào nhánh else → in "B".'},
+{t:'c5',q:'Câu nào sau đây là cú pháp đúng của switch trong C#?',o:['switch x { case 1: break; }','switch (x) { case 1: break; }','switch x () { case 1: break; }','switch: x { case 1 break; }'],a:1,
+ e:'Biến kiểm tra phải nằm trong ngoặc đơn: switch (x) { case …: …; break; }'},
+{t:'c5',q:'Lệnh else tương ứng với if gần nhất trong trường hợp nào?',o:['Câu lệnh if đầu tiên','Câu lệnh if gần nhất chưa có else','Câu lệnh switch','Câu lệnh for'],a:1,
+ e:'Quy tắc "else bắt if gần nhất": else luôn gắn với if gần nhất đứng trước nó mà chưa có else.'},
+{t:'c5',q:'Câu nào sau đây KHÔNG phải là đặc điểm của cấu trúc if?',o:['Có thể lồng nhau','Có thể bắt một câu lệnh lặp nhiều lần','Có thể kết hợp với else','Là cấu trúc điều kiện'],a:1,
+ e:'if chỉ quyết định chạy hay không chạy, không tạo vòng lặp. Muốn lặp phải dùng while/for.'},
+{t:'c5',q:'switch-case phù hợp nhất để xử lý điều kiện nào?',o:['Kiểm tra điều kiện phức tạp như x > 5 và x < 10','Kiểm tra một biến có giá trị cụ thể','Kiểm tra chuỗi ký tự dài','Tất cả đều đúng'],a:1,
+ e:'switch so sánh bằng với các giá trị hằng rời rạc; điều kiện khoảng/phức tạp phải dùng if-else.'},
+{t:'c5',q:'Lệnh default trong switch được thực hiện khi nào?',o:['Khi không có case nào khớp','Khi có từ 2 case khớp','Khi khai báo đầu tiên','Khi thiếu break'],a:0,
+ e:'default là nhánh dự phòng, chạy khi mọi case đều không khớp giá trị.'},
+{t:'c5',q:'Toán tử nào thường dùng trong biểu thức điều kiện if?',o:['+','=','==',':='],a:2,
+ e:'== là so sánh bằng. Dấu = là gán (if (x = 5) sẽ lỗi vì int không phải bool).'},
+{t:'c5',q:'Lệnh nào kết thúc một case trong switch?',o:['continue','exit','break','stop'],a:2,
+ e:'break kết thúc case. Thiếu break sẽ bị fall-through sang case dưới.'},
+{t:'c5',q:'Có thể sử dụng switch với kiểu dữ liệu nào sau đây?',o:['double','float','int','decimal'],a:2,
+ e:'int là kiểu rời rạc nên hợp lệ; double/float/decimal đều không dùng được trong switch.'},
+{t:'c5',q:'Cấu trúc nào phù hợp khi kiểm tra một biến có giá trị cụ thể trong danh sách?',o:['if','if-else','switch-case','do-while'],a:2,
+ e:'Nhiều giá trị cụ thể rời rạc → switch-case gọn và dễ đọc hơn chuỗi if-else.'},
+{t:'c5',q:'Trong switch-case, nếu không có break, điều gì xảy ra?',o:['Chỉ thực hiện 1 case','Thực hiện tất cả các case tiếp theo','Lỗi biên dịch','Kết thúc chương trình'],a:1,
+ e:'Đó là fall-through: chương trình "rơi" xuống thực hiện tiếp các case bên dưới cho đến khi gặp break.'},
+{t:'c5',q:'Trong câu lệnh if, điều kiện trả về kiểu gì?',o:['int','string','bool','char'],a:2,
+ e:'Điều kiện if bắt buộc là biểu thức bool.'},
+{t:'c5',q:'Đâu là ưu điểm của switch-case so với if-else?',o:['Hiệu quả khi có nhiều lựa chọn cụ thể','Xử lý điều kiện phức tạp','Có thể dùng mọi kiểu dữ liệu','Không cần break'],a:0,
+ e:'Nhiều nhánh giá trị cụ thể thì switch rõ ràng, dễ đọc và tối ưu hơn.'},
+{t:'c5',q:'Đoạn mã nào KHÔNG hợp lệ trong C#?',o:['if (x == 5) { Console.WriteLine("OK"); }','switch (x) { case 1: break; }','if x == 5 then Console.WriteLine("OK");','if (x > 0) Console.WriteLine("Positive");'],a:2,
+ e:'C# không có then và bắt buộc ngoặc đơn quanh điều kiện.'},
+{t:'c5',q:'Câu lệnh nào sau đây đúng để kiểm tra biến x bằng 10?',o:['if x = 10','if (x == 10)','if (x := 10)','if x equals 10'],a:1,
+ e:'Dùng toán tử so sánh == và đặt trong ngoặc đơn.'},
+{t:'c5',q:'Phát biểu nào sau đây đúng về lệnh else?',o:['else không bao giờ đi kèm với if','else dùng để kết thúc vòng lặp','else thực hiện khi điều kiện if sai','else đứng trước if'],a:2,
+ e:'else là nhánh dự phòng, chạy khi điều kiện if không thoả.'},
+{t:'c5',q:'Câu lệnh switch phù hợp khi nào?',o:['Khi có ít hơn 2 lựa chọn','Khi có các lựa chọn rời rạc, cụ thể','Khi dùng các biểu thức phức tạp','Khi không biết giá trị cần kiểm tra'],a:1,
+ e:'switch so sánh bằng với hằng số/ chuỗi cụ thể, không nhận biểu thức điều kiện phức tạp.'},
+{t:'c5',q:'Toán tử so sánh trong C# là gì?',o:[':=','=>','==','=:='],a:2,
+ e:'== là so sánh bằng. => là lambda, := không tồn tại trong C#.'},
+{t:'c5',q:'Lệnh if không hợp lệ nào sau đây?',o:['if (a > b) { Console.WriteLine("A lớn hơn"); }','if a > b Console.WriteLine("A lớn hơn");','if (a == b) Console.WriteLine("Bằng nhau");','if (true) { }'],a:1,
+ e:'Thiếu ngoặc đơn quanh điều kiện → sai cú pháp.'},
+{t:'c5',q:'Biểu thức điều kiện trong lệnh if phải trả về kiểu gì?',o:['int','string','bool','float'],a:2,
+ e:'Luôn là bool. C# không cho if (1) hay if ("abc").'},
+{t:'c5',q:'Trong switch-case, từ khóa break dùng để:',o:['Tạo vòng lặp','Thoát khỏi switch','So sánh giá trị','Tiếp tục case khác'],a:1,
+ e:'break kết thúc switch, tránh chạy tiếp các case phía dưới.'},
+{t:'c5',q:'Trong C#, switch không hỗ trợ kiểu dữ liệu nào?',o:['int','string','double','char'],a:2,
+ e:'Kiểu số thực (double) không dùng được trong switch.'},
+{t:'c5',q:'Nếu không có break, lệnh switch sẽ:',o:['Thực hiện 1 case và dừng lại','Bỏ qua tất cả các case','Thực hiện tiếp các case sau đó','Báo lỗi biên dịch'],a:2,
+ e:'Fall-through: chạy liên tiếp các case phía dưới cho đến hết switch hoặc gặp break.'},
+{t:'c5',q:'Đâu là ví dụ đúng về if lồng nhau?',o:['if (x > 0) if (x < 10) Console.WriteLine("OK");','if x > 0 then if x < 10 Console.WriteLine("OK");','if (x > 0) { if x < 10 Console.WriteLine("OK"); }','if ((x > 0) (x < 10)) Console.WriteLine("OK");'],a:0,
+ e:'Cú pháp C# hợp lệ: if (đk) if (đk2) … (đáp án C sai vì if bên trong thiếu ngoặc đơn).'},
+{t:'c5',q:'Có thể dùng if để kiểm tra điều kiện nào sau đây?',o:['x > 0','x + y','int x','Console.ReadLine()'],a:0,
+ e:'x > 0 là biểu thức bool. x + y là số, int x là khai báo, ReadLine() trả về string → đều không hợp lệ.'},
+{t:'c5',q:'Từ khóa else thường đứng sau:',o:['switch','if','for','while'],a:1,
+ e:'else luôn đi kèm với một if đứng trước nó.'},
+{t:'c5',q:'Lệnh switch-case KHÔNG thể dùng với:',o:['int','bool','string','char'],a:1,
+ e:'Trong C# cổ điển switch không nhận bool (chỉ nhận kiểu rời rạc số, char, string, enum).'},
+{t:'c5',q:'Câu lệnh nào hợp lệ trong C#?',o:['if x > y Console.WriteLine("OK");','if (x > y) Console.WriteLine("OK");','if: x > y then Console.WriteLine("OK");','if (x > y): Console.WriteLine("OK");'],a:1,
+ e:'Đúng cú pháp: if (điều kiện) câu_lệnh;'},
+{t:'c5',q:'switch-case thường dùng trong trường hợp nào?',o:['Kiểm tra nhiều giá trị cụ thể','Kiểm tra chuỗi dài','Lặp lại một khối lệnh','Tính toán số học'],a:0,
+ e:'switch là công cụ "chọn một trong nhiều giá trị cụ thể".'},
+{t:'c5',q:'Biến được sử dụng trong switch phải là:',o:['Một hằng số','Một biến kiểu số hoặc chuỗi','Một biểu thức logic','Một phương thức'],a:1,
+ e:'Biến kiểm tra phải thuộc kiểu rời rạc: số nguyên, char, string, enum…'},
+{t:'c5',q:'Có thể dùng nhiều case liên tiếp không có break để làm gì?',o:['Kết hợp nhiều giá trị chung một xử lý','Rút gọn chương trình','Lặp lại một case','Thử tất cả các case'],a:0,
+ e:'Gom case (case 1: case 2: case 3: chung một khối lệnh) để nhiều giá trị dùng chung xử lý.'},
+{t:'c5',q:'Câu nào sau đây là sai về switch?',o:['Có thể dùng với kiểu int','Mỗi case là một giá trị cụ thể','Có thể dùng điều kiện phức tạp','Có thể dùng default'],a:2,
+ e:'switch không nhận điều kiện phức tạp như x > 5 && y < 10 — đó là việc của if.'},
+{t:'c5',q:'Câu nào sau đây là đúng với if-else?',o:['Chỉ có thể có 1 else','Phải có ít nhất 1 else','Có thể có nhiều else liên tiếp','else phải đứng trước if'],a:0,
+ e:'Mỗi if chỉ có tối đa một else (dùng else if nếu cần nhiều nhánh).'},
+{t:'c5',q:'Cấu trúc if-else có thể lồng nhau không?',o:['Không bao giờ','Chỉ lồng 1 cấp','Có thể lồng nhiều cấp','Phụ thuộc vào trình biên dịch'],a:2,
+ e:'Có thể lồng nhiều cấp, nhưng nên thụt dòng rõ ràng để tránh nhầm "else bắt if nào".'},
+{t:'c5',q:'Lệnh nào sẽ thực hiện khi không case nào khớp trong switch?',o:['case 0','if','default','else'],a:2,
+ e:'default là nhánh mặc định của switch.'},
+{t:'c5',q:'Toán tử nào sau đây dùng để gán giá trị?',o:['==','=',':=','==='],a:1,
+ e:'= là gán; == là so sánh. C# không có := hay ===.'},
+{t:'c5',q:'Câu lệnh switch kết thúc bằng:',o:['default','break','return','continue'],a:1,
+ e:'Thông thường mỗi case kết thúc bằng break (hoặc return) để thoát khỏi switch.'},
+{t:'c5',q:'Lệnh if nào dưới đây đúng cú pháp?',o:['if x > 5 Console.WriteLine("OK");','if (x > 5) { Console.WriteLine("OK"); }','if x := 5 then OK','if x => 5'],a:1,
+ e:'Điều kiện trong ngoặc đơn, thân lệnh trong ngoặc nhọn.'},
+{t:'c5',q:'Câu nào đúng để kiểm tra nhiều điều kiện?',o:['if (x > 5 && y < 10)','if x > 5 & y < 10','if (x > 5 : y < 10)','if (x > 5 or y < 10)'],a:0,
+ e:'Dùng && (và), || (hoặc), ! (phủ định) trong ngoặc đơn. C# không có từ khóa "or".'},
+
+/* ---------------- FOR & BÀI TẬP MÔ PHỎNG ---------------- */
+
+/* ---------------- FOR : BỘ CÂU HỎI FORM 2 CỦA GIÁO VIÊN ---------------- */
+{t:'for',tr:true,c:'for (int i = 0; i < 3; i++)\n    Console.Write(i);',q:'Kết quả của đoạn mã sau là gì?',o:['012','123','321','111'],a:0,
+ e:'i = 0, 1, 2 → in ra 012. Vòng for dừng khi i = 3 vì 3 < 3 sai.'},
+{t:'for',q:'Vòng lặp for đơn có cấu trúc cơ bản gồm bao nhiêu phần?',o:['2','3','4','5'],a:1,
+ e:'3 phần: khởi tạo; điều kiện; bước lặp — ngăn cách bởi hai dấu chấm phẩy.'},
+{t:'for',q:'Câu lệnh nào đúng để lặp từ 10 đến 1?',o:['for (int i = 10; i >= 1; i--)','for (int i = 1; i <= 10; i++)','for (int i = 10; i <= 1; i--)','for (int i = 1; i >= 10; i++)'],a:0,
+ e:'Bắt đầu 10, điều kiện i >= 1, mỗi lần giảm 1 (i--).'},
+{t:'for',tr:true,c:'int sum = 0;\nfor (int i = 1; i <= 3; i++)\n    sum += i;\nConsole.Write(sum);',q:'Kết quả của đoạn mã sau là gì?',o:['3','6','5','0'],a:1,
+ e:'1 + 2 + 3 = 6.'},
+{t:'for',q:'Biến điều khiển vòng lặp thường được khai báo ở đâu?',o:['Trong điều kiện dừng','Trong phần khởi tạo của vòng for','Sau vòng lặp','Không cần khai báo'],a:1,
+ e:'Khai báo ngay ở phần khởi tạo: for (int i = 0; …) — biến chỉ tồn tại trong vòng lặp.'},
+{t:'for',q:'Lệnh break trong vòng lặp dùng để:',o:['Tăng biến lặp','Kết thúc vòng lặp sớm','Dừng chương trình','Không có tác dụng'],a:1,
+ e:'break thoát khỏi vòng lặp ngay tại chỗ nó xuất hiện, không chờ đến điều kiện dừng.'},
+{t:'for',q:'Vòng lặp for lồng nhau dùng khi nào?',o:['Khi cần lặp 2 chiều hoặc đa chiều','Khi chỉ có một biến cần lặp','Khi cần nhập dữ liệu','Khi không biết số lần lặp'],a:0,
+ e:'Dùng cho bảng cửu chương, ma trận, hình sao… tức là bài toán có 2 chiều (dòng × cột).'},
+{t:'for',tr:true,c:'int count = 0;\nfor (int i = 0; i < 2; i++)\n    for (int j = 0; j < 2; j++)\n        count++;\nConsole.Write(count);',q:'Kết quả của đoạn mã sau là gì?',o:['2','3','4','6'],a:2,
+ e:'Vòng ngoài 2 lần × vòng trong 2 lần = 4 lần → count = 4.'},
+{t:'for',q:'Vòng lặp for dừng lại khi nào?',o:['Khi điều kiện luôn đúng','Khi điều kiện sai','Khi biến đạt giá trị âm','Khi break được gọi'],a:1,
+ e:'Điều kiện được kiểm tra trước mỗi lần lặp; sai thì dừng. (break cũng làm dừng nhưng đó là thoát chủ động, không phải cơ chế dừng của for.)'},
+{t:'for',q:'Có thể lồng bao nhiêu vòng for trong C#?',o:['Tối đa 2','Tối đa 3','Không giới hạn','Tối đa 5'],a:2,
+ e:'Không giới hạn về mặt cú pháp; lồng quá nhiều chỉ làm code khó đọc và chậm.'},
+{t:'for',q:'Phần nào sau đây là không bắt buộc trong vòng for?',o:['Khởi tạo biến','Điều kiện dừng','Bước lặp','Cả ba đều có thể bỏ'],a:3,
+ e:'Cả 3 phần đều có thể bỏ trống, ví dụ for (;;) là hợp lệ.'},
+{t:'for',tr:true,c:'int count = 0;\nfor (int i = 1; i <= 2; i++)\n    for (int j = 1; j <= 3; j++)\n        count++;\nConsole.Write(count);',q:'Kết quả của đoạn mã sau là gì?',o:['5','6','4','3'],a:1,
+ e:'2 × 3 = 6 lần.'},
+{t:'for',q:'Lệnh continue trong vòng lặp for dùng để:',o:['Kết thúc vòng lặp','Bỏ qua lần lặp hiện tại','Tăng bước nhảy','Dừng chương trình'],a:1,
+ e:'continue bỏ phần còn lại của lần lặp hiện tại rồi sang lần kế tiếp (vẫn thực hiện bước nhảy i++).'},
+{t:'for',tr:true,c:'for (int i = 0; i < 2; i++)\n    for (int j = 0; j < 2; j++)\n        Console.Write(i + j);',q:'Kết quả của đoạn mã sau là gì?',o:['0123','0112','0011','1122'],a:1,
+ e:'i=0: j=0→0, j=1→1 (01); i=1: j=0→1, j=1→2 (12) → 0112.'},
+{t:'for',q:'Vòng lặp for thường được dùng khi:',o:['Không biết số lần lặp','Biết rõ số lần lặp','Dùng với kiểu bool','Dùng để nhập dữ liệu'],a:1,
+ e:'for phù hợp khi biết trước số vòng; chưa biết thì dùng while.'},
+{t:'for',q:'Biến i trong for (int i = 0; ...) được sử dụng để:',o:['Nhập dữ liệu','Điều khiển số lần lặp','Khai báo biến toàn cục','Lưu trữ giá trị đầu vào'],a:1,
+ e:'i là biến đếm: khởi tạo, so với điều kiện và thay đổi mỗi vòng để điều khiển số lần lặp.'},
+{t:'for',q:'Điều kiện dừng sai trong vòng lặp for dẫn đến:',o:['Chương trình chạy đúng','Lỗi biên dịch','Vòng lặp vô hạn','Không có vòng lặp'],a:2,
+ e:'Ví dụ for (int i = 0; i > 10; i++) — điều kiện luôn sai nên không chạy; còn for (int i = 0; i >= 0; i++) thì lặp mãi.'},
+{t:'for',q:'Dấu hiệu phổ biến để nhận biết vòng for lồng nhau là:',o:['Có dấu =','Có for bên trong for','Dùng biến giống nhau','Có dấu +'],a:1,
+ e:'Một vòng for nằm trong thân của vòng for khác, thường dùng biến đếm khác nhau (i, j).'},
+{t:'for',tr:true,c:'for (int i = 1; i <= 3; i++)\n    for (int j = 1; j <= 2; j++)\n    { /* thân vòng trong */ }',q:'Vòng lặp trên chạy bao nhiêu lần?',o:['3','2','6','5'],a:2,
+ e:'3 × 2 = 6 lần.'},
+{t:'for',q:'Lệnh nào kết thúc vòng lặp for bất kỳ?',o:['break','continue','return','exit'],a:0,
+ e:'break thoát khỏi vòng lặp gần nhất. continue chỉ bỏ qua 1 lần lặp.'},
+{t:'for',q:'Câu lệnh nào sau đây đúng với cú pháp vòng for?',o:['for int i = 0; i < 10; i++','for (i = 0; i < 10; i++)','for (int i = 0; i < 10; i++)','for (int i < 10; i++)'],a:2,
+ e:'Đúng chuẩn: for (khởi tạo; điều kiện; bước lặp) — có ngoặc đơn và đủ 2 dấu ;'},
+{t:'for',q:'Câu lệnh for nào sẽ tạo vòng lặp vô hạn?',o:['for (;;)','for (int i = 0; i < 10; i++)','for (int i = 0; i > 10; i++)','for (int i = 0; i < 10; i--)'],a:0,
+ e:'Đáp án chuẩn của đề là A: for (;;) không có điều kiện dừng → lặp mãi. Lưu ý: đáp án D (i--) cũng không bao giờ dừng vì i giảm dần, nhưng khi làm bài hãy chọn A theo đúng kiểu mẫu “for(;;)”.'},
+{t:'for',tr:true,c:'for (int i = 1; i <= 2; i++)\n    for (int j = 1; j <= 3; j++)\n        Console.Write(j);',q:'Đoạn mã sau thực hiện điều gì?',o:['In 12345','In 123123','In 111222333','In 321321'],a:1,
+ e:'Mỗi lần vòng ngoài chạy, vòng trong in lại 1 2 3 → 123123.'},
+{t:'for',q:'Vòng for có thể sử dụng với kiểu dữ liệu nào?',o:['int','string','bool','float'],a:0,
+ e:'Biến đếm của for phải là kiểu số (thường là int) để tăng/giảm được.'},
+{t:'for',q:'Điều gì xảy ra nếu quên cập nhật biến đếm trong vòng lặp for?',o:['Không ảnh hưởng gì','Vòng lặp chạy đúng 1 lần','Vòng lặp không bao giờ dừng','Trình biên dịch báo lỗi'],a:2,
+ e:'Biến đếm không đổi → điều kiện mãi đúng → vòng lặp vô hạn (chương trình treo).'},
+{t:'for',q:'Trong C#, vòng for có thể bỏ phần nào sau đây?',o:['Khởi tạo','Điều kiện','Bước lặp','Cả ba'],a:3,
+ e:'Cả ba phần đều không bắt buộc; bỏ cả ba thành for (;;).'},
+{t:'for',tr:true,c:'for (int i = 1; i <= 2; i++)\n    for (int j = 1; j <= 2; j++)\n        Console.WriteLine(i * j);',q:'Vòng lặp trên sẽ in ra mấy dòng?',o:['2','4','6','1'],a:1,
+ e:'2 × 2 = 4 lần WriteLine → 4 dòng (1, 2, 2, 4).'},
+{t:'for',q:'Câu lệnh for nào sau đây KHÔNG đúng?',o:['for (int i = 0; i < 10; i++)','for (int i = 10; i >= 0; i--)','for int i = 0; i < 10; i++)','for (;;)'],a:2,
+ e:'Thiếu dấu ngoặc đơn mở sau for → sai cú pháp.'},
+{t:'for',q:'Cấu trúc vòng for lồng nhau gồm:',o:['Một vòng while bao ngoài','Một for chứa một for khác','Một switch chứa for','Một if chứa for'],a:1,
+ e:'for lồng nhau = for bên trong thân của một for khác.'},
+{t:'for',q:'Mục đích của biến j trong vòng for lồng nhau là gì?',o:['Đếm số lần lặp ngoài','Đếm số vòng lặp bên trong','Không có tác dụng','Biến toàn cục'],a:1,
+ e:'j điều khiển vòng trong (thường là cột), i điều khiển vòng ngoài (dòng).'},
+{t:'for',q:'Dòng nào tạo lỗi trong vòng for?',o:['for (int i = 0; i < 10; i--)','for (int i = 0; i < 10)','for (;;)','for (i = 0; i < 10; i++)'],a:1,
+ e:'Thiếu dấu ; ngăn cách điều kiện và bước lặp → lỗi biên dịch. (Đáp án A chạy được nhưng lặp vô hạn.)'},
+{t:'for',q:'break trong vòng for sẽ:',o:['Kết thúc cả chương trình','Kết thúc vòng lặp hiện tại','Bỏ qua vòng lặp hiện tại','Quay lại đầu vòng lặp'],a:1,
+ e:'break thoát khỏi vòng lặp chứa nó; nếu có for lồng thì chỉ thoát vòng trong cùng.'},
+{t:'for',q:'continue trong vòng for sẽ:',o:['Thoát khỏi vòng for','Bỏ qua lần lặp hiện tại','Chạy lại từ đầu','Làm ngừng chương trình'],a:1,
+ e:'continue bỏ qua phần còn lại của lần lặp hiện tại, sau đó vẫn thực hiện bước nhảy và kiểm tra điều kiện.'},
+{t:'for',tr:true,c:'for (int i = 0; i < 2; i++)\n    for (int j = 0; j < 3; j++)\n    { /* thân vòng trong */ }',q:'Thân vòng trong được thực hiện bao nhiêu lần?',o:['2','3','5','6'],a:3,
+ e:'2 × 3 = 6 lần.'},
+{t:'for',q:'Trong vòng lặp for lồng nhau, vòng trong chạy:',o:['Một lần duy nhất','Mỗi lần vòng ngoài chạy','Chạy song song với vòng ngoài','Ngẫu nhiên'],a:1,
+ e:'Mỗi lần vòng ngoài sang một giá trị mới, vòng trong chạy lại từ đầu đến hết.'},
+{t:'for',q:'Câu lệnh nào đúng để in tam giác sao bằng for lồng nhau?',o:['Không thể làm bằng for','Chỉ cần 1 for là đủ','2 vòng for, 1 dòng in','Dùng for và while'],a:2,
+ e:'Vòng ngoài duyệt số dòng, vòng trong in số dấu * của từng dòng, sau đó xuống dòng.'},
+{t:'for',q:'Vòng lặp for thường dùng trong:',o:['Chạy không giới hạn','Chạy theo số lần xác định','Chạy khi chưa biết điều kiện','Chạy song song'],a:1,
+ e:'for dành cho trường hợp biết trước số lần lặp.'},
+{t:'for',q:'Lệnh for (;;) có ý nghĩa gì?',o:['Không hợp lệ','Vòng lặp vô hạn','Lặp 1 lần','Lặp theo điều kiện sau'],a:1,
+ e:'Không có điều kiện → luôn đúng → lặp vô hạn, thường dùng kèm break để thoát.'},
+{t:'for',q:'Điều kiện trong for cần trả về:',o:['int','string','bool','void'],a:2,
+ e:'Điều kiện là biểu thức bool, giống while và if.'},
+{t:'for',q:'Toán tử ++ trong for có tác dụng:',o:['Giảm giá trị biến','Gán lại biến','Tăng biến thêm 1','Không có tác dụng'],a:2,
+ e:'i++ tương đương i = i + 1.'},
+{t:'for',q:'Câu lệnh for nào sau đúng?',o:['for i = 0; i < 10; i++','for (int i = 0; i < 10; i++)','for i := 0 to 10','for (i = 0; i < 10)'],a:1,
+ e:'C# cần ngoặc đơn và đủ 3 phần ngăn bởi 2 dấu ;'},
+{t:'for',q:'Lệnh for dùng để:',o:['Thực hiện lặp khi biết số lần','Thay thế lệnh điều kiện','Nhập dữ liệu','Khai báo biến toàn cục'],a:0,
+ e:'for là cấu trúc lặp dùng khi biết trước số lần lặp.'},
+{t:'for',q:'Câu nào đúng để kiểm tra nhiều điều kiện trong for?',o:['for (int i = 0; i < 10 && i != 5; i++)','for (int i = 0; i = 10; i++)','for (i: 0 to 10)','for (int i = 0; i < 10 or i > 0; i++)'],a:0,
+ e:'Dùng &&, ||, ! để ghép điều kiện. C# không có từ khóa "or"; dấu = là gán chứ không phải so sánh.'},
+
+/* ---------------- TRUY VẾT CODE ---------------- */
+];
+
+const TIPS = [
+"Từ khóa “chạy” gắn với điều kiện ĐÚNG; đáp án nói “sai” hoặc “một lần” là nhiễu.",
+"Mẹo nhớ: do = làm trước, xét sau → luôn ít nhất 1 lần. Đáp án nói ngược lại là sai.",
+"foreach = “với từng cái” → chỉ đáp án nói về phần tử/tập hợp là đúng.",
+"Mọi điều kiện trong C# (if/while/for) đều là bool — câu này hỏi đúng điều đó.",
+"Quét hình dạng: do { } while (…); — thiếu ngoặc nhọn hoặc thiếu dấu ; cuối là sai.",
+"Chạy tay 3 vòng: i=0 in 0, i=1 in 1, i=2 in 2 → 012. Đừng chọn 123 vì i bắt đầu từ 0.",
+"Câu phủ định: loại 3 đáp án là tập hợp (mảng, List, string), còn lại là biến đơn.",
+"Thuộc lòng cặp số: do-while = 1, while = 0. Câu này gần như chắc chắn có trong đề.",
+"x-- trả về giá trị CŨ rồi mới giảm: 5→4→3→2→1→0, in ra giá trị cuối là 0.",
+"while = kiểm tra TRƯỚC. Đáp án nào nói “sau khi thực hiện” là đặc điểm của do-while.",
+"foreach cần tập hợp → mảng và danh sách. “Biến nguyên/logic/đơn lẻ” là nhiễu.",
+"break = thoát vòng lặp, KHÔNG phải thoát chương trình. Đáp án “kết thúc chương trình” là bẫy.",
+"Lặp khi điều kiện CÒN đúng. Các đáp án “biến bằng 0”, “gặp break” chỉ là trường hợp cụ thể.",
+"C# dùng “in” + ngoặc đơn. Thấy dấu “:” (Python/Java) hoặc thiếu ngoặc → loại ngay.",
+"Từ khóa “ít nhất một lần” → do-while. Gặp cụm này là chọn được ngay.",
+"for = biết trước số lần; while = chưa biết. Đọc đúng chiều câu hỏi, đừng chọn ngược.",
+"continue = bỏ qua lần này, KHÔNG thoát vòng. Đáp án “kết thúc/nhảy ra” là bẫy.",
+"Duyệt xuôi 1→2→3. Đáp án 321 là bẫy “duyệt ngược” — foreach không làm được.",
+"foreach chỉ duyệt xuôi và chỉ đọc → loại đáp án “từ cuối lên”, “gán lại”.",
+"Khác biệt cốt lõi chỉ nằm ở một chữ: foreach KHÔNG có chỉ số.",
+"Không đổi biến → điều kiện mãi đúng → vòng lặp vô hạn. Đây là lỗi kinh điển.",
+"Câu hỏi “lớn nhất” → chọn đáp án nói về THỜI ĐIỂM kiểm tra điều kiện.",
+"Biến lặp của foreach là chỉ đọc → không sửa được giá trị phần tử.",
+"Ba đáp án kia đều đúng với while; đáp án nói “kiểm tra sau khi chạy” là của do-while.",
+"Cụm “ít nhất 1 lần” luôn dẫn tới do-while — không cần đọc hết đáp án.",
+"while (điều kiện) { } — thiếu ngoặc đơn, hoặc có dấu ; ngay sau while, đều là sai.",
+"break thuộc vòng lặp (và switch); if / namespace / class không có break.",
+"Duyệt “toàn bộ phần tử” → foreach là lựa chọn tự nhiên nhất.",
+"continue = sang lần kế tiếp. Đừng nhầm với break (thoát hẳn).",
+"foreach không có biến chỉ số. Đáp án “có” là sai.",
+"Câu hỏi “vòng nào” mà có đáp án “tất cả” → break dùng được ở mọi vòng nên chọn tất cả.",
+"Chọn đáp án hội đủ 2 ý: duyệt hết phần tử + không cần chỉ số.",
+"while (và for) kiểm tra trước; do-while kiểm tra sau.",
+"x-- trả về giá trị CŨ: 3, 2, 1 → 3 lần; lần thứ 4 là 0 nên dừng.",
+"Cú pháp chuẩn: foreach (var x in list) — có ngoặc đơn và từ khóa in.",
+"Lỗi số 1 của while: quên tăng/giảm biến điều kiện → vô hạn.",
+"do-while kết thúc bằng while(…); — dấu ; chính là điểm nhận dạng.",
+"Chọn đáp án nói “kiểm tra điều kiện SAU khi thực hiện”.",
+"Đáp án thiếu ngoặc đơn và thiếu “in” là sai cú pháp — nhìn hình dạng là loại được.",
+"bool. Nhớ: C# không cho while(1) như C/C++.",
+"while(true) là chuẩn; while(1) sai kiểu, 'true' là char, “== true” thiếu vế trái.",
+"Chọn đáp án có đủ 2 điều kiện: không cần chỉ số + không sửa phần tử.",
+"Ba đáp án đầu là foreach hợp lệ; đáp án có dấu ; và i++ là cú pháp của for.",
+"case 1, 2, 3 gom chung một khối → x = 3 rơi vào đó và in “Matched”.",
+"switch chỉ nhận kiểu rời rạc; số thực (double) là đáp án cần tìm.",
+"C# không có “then” → loại ngay đáp án có then; phần còn lại phải có ngoặc đơn.",
+"10 > 15 là sai → chạy nhánh else → in B. Đừng chọn A theo thói quen.",
+"switch (biến) { case …: … break; } — thiếu ngoặc đơn quanh biến là sai.",
+"Quy tắc vàng: else bắt if GẦN NHẤT chưa có else.",
+"if chỉ quyết định chạy/không chạy, không lặp → đáp án nói “lặp nhiều lần” là sai.",
+"switch = so sánh BẰNG với giá trị cụ thể; điều kiện khoảng/phức tạp là việc của if.",
+"default là nhánh dự phòng, chạy khi không case nào khớp.",
+"So sánh bằng là ==; dấu = là gán nên đáp án có = bị loại.",
+"break kết thúc case. continue/exit/stop không dùng cho việc này.",
+"Trong 4 đáp án chỉ int là kiểu rời rạc → chọn int.",
+"Nhiều giá trị rời rạc cần kiểm tra → switch-case.",
+"Fall-through: không break thì chạy tiếp các case bên dưới. Đừng chọn “lỗi biên dịch”.",
+"bool — giống mọi biểu thức điều kiện khác trong C#.",
+"Nhiều lựa chọn cụ thể → switch gọn và nhanh hơn chuỗi if-else.",
+"Tìm đáp án có “then” hoặc thiếu ngoặc — dấu hiệu cú pháp của ngôn ngữ khác.",
+"if (x == 10): phải có ngoặc đơn và dùng ==, không dùng = hay :=.",
+"else chạy khi điều kiện if SAI.",
+"Lựa chọn rời rạc, cụ thể (menu, mã tháng…) → switch.",
+"== là so sánh; := và => không phải toán tử so sánh trong C#.",
+"Thiếu ngoặc đơn quanh điều kiện → không hợp lệ.",
+"bool. Câu này lặp lại nhiều lần trong đề nên chắc chắn phải nhớ.",
+"break trong switch = thoát switch, tránh chạy tiếp case phía dưới.",
+"double (số thực) — không dùng được trong switch.",
+"Không break → thực hiện tiếp các case sau (fall-through).",
+"Kiểm tra từng if có ngoặc đơn; đáp án có “then” hoặc if trong thiếu ngoặc là sai.",
+"Chỉ biểu thức bool (x > 0) hợp lệ; x + y là số, “int x” là khai báo.",
+"else luôn đứng sau if.",
+"bool — switch chỉ nhận số nguyên, char, string, enum.",
+"if (điều kiện) lệnh; — có ngoặc đơn là hợp lệ.",
+"Kiểm tra nhiều giá trị cụ thể → switch-case.",
+"Biến kiểu số hoặc chuỗi (rời rạc), không phải biểu thức logic.",
+"Gom nhóm case: nhiều giá trị dùng chung một khối xử lý.",
+"switch KHÔNG nhận điều kiện phức tạp → đáp án nói “có thể” là sai.",
+"Mỗi if chỉ có tối đa 1 else; muốn nhiều nhánh phải dùng else if.",
+"if-else lồng nhau được nhiều cấp, không giới hạn 1 cấp.",
+"Không case nào khớp → default.",
+"= là gán; == là so sánh. Câu hỏi “gán” nên chọn =.",
+"Mỗi case kết thúc bằng break (hoặc return).",
+"Đúng cú pháp: ngoặc đơn cho điều kiện + ngoặc nhọn cho thân.",
+"Ghép điều kiện bằng && / || trong ngoặc đơn; C# không có từ khóa “or”.",
+"i bắt đầu 0 → in 0, 1, 2. Đáp án 123 là bẫy quen thuộc.",
+"3 phần: khởi tạo; điều kiện; bước lặp — đếm theo 2 dấu chấm phẩy.",
+"Bắt đầu 10, điều kiện >= 1, bước i--. Đáp án bắt đầu từ 1 là sai hướng.",
+"1 + 2 + 3 = 6. Nếu ra 3 nghĩa là bạn quên cộng dồn.",
+"Khai báo ngay trong phần khởi tạo: for (int i = 0; …).",
+"break = kết thúc vòng lặp SỚM, không chờ điều kiện sai.",
+"Bài toán 2 chiều (dòng × cột): bảng cửu chương, ma trận, hình sao.",
+"2 × 2 = 4 — nhân số vòng, đừng cộng.",
+"for dừng khi điều kiện SAI.",
+"Không giới hạn số cấp lồng (chỉ giới hạn ở độ dễ đọc).",
+"Cả 3 phần đều bỏ được → chọn “cả ba”.",
+"2 × 3 = 6.",
+"continue bỏ qua lần hiện tại nhưng vẫn chạy bước nhảy i++.",
+"i=0 in 0,1; i=1 in 1,2 → 0112.",
+"for dùng khi biết rõ số lần lặp.",
+"i là biến đếm → điều khiển số lần lặp.",
+"Điều kiện luôn đúng → vòng lặp vô hạn.",
+"Dấu hiệu: có chữ for nằm trong thân một for khác.",
+"3 × 2 = 6.",
+"break (continue chỉ bỏ qua 1 lần, không kết thúc).",
+"Đúng cú pháp: ngoặc đơn, đủ 2 dấu ;, có khai báo kiểu cho i.",
+"for(;;) là kiểu mẫu; đọc kỹ từng đáp án vì có đáp án khác cũng không bao giờ dừng.",
+"Vòng ngoài 2 lần, mỗi lần in lại 1 2 3 → 123123.",
+"Biến đếm phải là kiểu số → int.",
+"Không cập nhật biến đếm → vòng lặp không bao giờ dừng (không phải lỗi biên dịch).",
+"Cả ba phần đều bỏ được → for(;;) vẫn hợp lệ.",
+"2 × 2 = 4 dòng (mỗi WriteLine là một dòng).",
+"Tìm đáp án thiếu dấu ngoặc đơn mở sau for.",
+"Một for chứa một for khác.",
+"j điều khiển vòng trong (cột), i điều khiển vòng ngoài (dòng).",
+"Thiếu dấu ; giữa điều kiện và bước lặp → lỗi biên dịch.",
+"break = kết thúc vòng lặp hiện tại.",
+"continue = bỏ qua lần lặp hiện tại.",
+"2 × 3 = 6.",
+"Vòng trong chạy lại từ đầu mỗi khi vòng ngoài sang giá trị mới.",
+"Cần 2 vòng for: một cho số dòng, một cho số dấu * trên mỗi dòng.",
+"for chạy theo số lần xác định.",
+"for(;;) = vòng lặp vô hạn (bỏ cả 3 phần).",
+"bool — điều kiện vòng lặp luôn là biểu thức bool, không phải số.",
+"i++ tương đương i = i + 1 → tăng thêm 1.",
+"Đúng cú pháp: có ngoặc đơn và đủ 3 phần.",
+"for dùng để lặp khi biết số lần.",
+"Ghép bằng &&; dấu = là gán, “or” không tồn tại trong C#."
+];
+
+const ESSAY = [
+/* ---------------- FORM 1 ---------------- */
+{
+  t:'c4', form:'Form 1', no:'Câu 46',
+  q:'Viết chương trình dùng while để tính tổng các số từ 1 đến 100.',
+  hint:'Khởi tạo biến đếm i = 1 và biến tổng = 0; điều kiện i <= 100; trong thân nhớ cộng dồn rồi tăng i.',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        int i = 1;          // biến đếm
+        int tong = 0;       // biến tích lũy - phải khởi tạo bằng 0
+
+        while (i <= 100)
+        {
+            tong += i;      // tong = tong + i
+            i++;            // BẮT BUỘC: tăng i, nếu không sẽ lặp vô hạn
+        }
+
+        Console.WriteLine("Tong 1..100 = " + tong);
+    }
+}`,
+  out:'Tong 1..100 = 5050',
+  exp:'while kiểm tra điều kiện <b>trước</b> mỗi lần lặp: i còn ≤ 100 thì cộng i vào tổng rồi tăng i. Khi i = 101, điều kiện sai → thoát vòng lặp. Kiểm tra nhanh bằng công thức n(n+1)/2 = 100 × 101 / 2 = <b>5050</b>.',
+  err:'Quên <code>i++</code> → vòng lặp vô hạn, chương trình treo. Khởi tạo <code>tong = 1</code> → ra 5051. Đặt <code>i++</code> trước <code>tong += i</code> → mất số 1, tổng còn 5049.'
+},
+{
+  t:'c4', form:'Form 1', no:'Câu 47',
+  q:'So sánh cú pháp và cách hoạt động giữa while và do-while trong C#.',
+  hint:'Lập bảng 4 dòng: cú pháp – thời điểm kiểm tra – số lần chạy tối thiểu – tình huống nên dùng. Kèm 1 ví dụ ngắn cho mỗi vòng.',
+  text:`<table class="cmp">
+    <tr><th>Tiêu chí</th><th>while</th><th>do-while</th></tr>
+    <tr><td>Cú pháp</td><td><code>while (điều kiện) { ... }</code></td><td><code>do { ... } while (điều kiện);</code></td></tr>
+    <tr><td>Kiểm tra điều kiện</td><td><b>Trước</b> khi chạy khối lệnh</td><td><b>Sau</b> khi chạy khối lệnh</td></tr>
+    <tr><td>Số lần tối thiểu</td><td>0 lần (điều kiện sai ngay)</td><td>1 lần</td></tr>
+    <tr><td>Dấu kết thúc</td><td>Không cần</td><td>Bắt buộc dấu <code>;</code> sau <code>while (...)</code></td></tr>
+    <tr><td>Nên dùng khi</td><td>Chưa chắc cần chạy lần nào (duyệt mảng, tìm kiếm)</td><td>Chắc chắn phải chạy ít nhất 1 lần (menu, nhập liệu)</td></tr>
+  </table>
+  <ul class="tight">
+    <li><b>while:</b> <code>int i = 1; while (i <= 3) { Console.Write(i); i++; }</code> → in 123.</li>
+    <li><b>do-while:</b> <code>int i = 1; do { Console.Write(i); i++; } while (i <= 3);</code> → cũng in 123.</li>
+    <li>Khác biệt lộ rõ khi điều kiện <b>sai ngay từ đầu</b>: while không in gì, do-while vẫn in 1 lần.</li>
+  </ul>`,
+  exp:'Điểm mấu chốt để được điểm cao: nói được <b>thời điểm kiểm tra điều kiện</b> quyết định số lần lặp tối thiểu (0 so với 1), và do-while bắt buộc có dấu <code>;</code> ở cuối.',
+  err:'Trả lời "giống nhau, chỉ khác cú pháp" là thiếu ý. Nhầm do-while kiểm tra trước. Quên nêu ví dụ minh họa.'
+},
+{
+  t:'c4', form:'Form 1', no:'Câu 48',
+  q:'Viết chương trình sử dụng foreach để in tất cả phần tử của mảng số nguyên.',
+  hint:'Khai báo mảng int[] rồi foreach (int x in a) — không cần biến chỉ số.',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] a = { 3, 7, 2, 9, 5 };
+
+        Console.Write("Cac phan tu: ");
+        foreach (int x in a)
+        {
+            Console.Write(x + " ");
+        }
+        Console.WriteLine();
+    }
+}`,
+  out:'Cac phan tu: 3 7 2 9 5',
+  exp:'foreach tự lấy lần lượt từng phần tử của mảng gán vào biến <code>x</code>, không cần biết chỉ số và không cần điều kiện dừng → ít lỗi tràn chỉ số.',
+  err:'Viết <code>foreach (int x in a)</code> nhưng lại dùng <code>a[i]</code> bên trong (i không tồn tại). Cố gán <code>x = 10</code> trong foreach → lỗi biên dịch vì biến lặp chỉ đọc.'
+},
+{
+  t:'c4', form:'Form 1', no:'Câu 49',
+  q:'Trong trường hợp nào nên dùng foreach thay vì for truyền thống?',
+  hint:'Nêu 3 điều kiện "nên dùng" và 4 trường hợp "không nên dùng" — càng cụ thể càng dễ được điểm.',
+  text:`<p style="margin:6px 0"><b>Nên dùng foreach khi:</b></p>
+  <ul class="tight">
+    <li>Cần duyệt <b>toàn bộ</b> phần tử của mảng / List / string mà không bỏ sót.</li>
+    <li><b>Không cần chỉ số</b> (không cần biết "phần tử thứ mấy").</li>
+    <li><b>Không sửa</b> giá trị phần tử, chỉ đọc để tính toán hoặc in ra.</li>
+    <li>Muốn code gọn, tránh lỗi truy cập ngoài phạm vi mảng.</li>
+  </ul>
+  <p style="margin:6px 0"><b>Nên dùng for khi:</b></p>
+  <ul class="tight">
+    <li>Cần chỉ số: in "Phan tu thu i", tính vị trí, so sánh a[i] với a[i+1].</li>
+    <li>Duyệt <b>ngược</b> (từ cuối lên) hoặc bước nhảy khác 1 (i += 2).</li>
+    <li>Cần <b>gán lại</b> giá trị phần tử: <code>a[i] = a[i] * 2;</code></li>
+    <li>Cần dừng giữa chừng theo điều kiện hoặc duyệt một đoạn con.</li>
+  </ul>
+  <p style="margin:6px 0"><b>Ví dụ:</b> in danh sách sinh viên → foreach; tính tổng các phần tử ở vị trí chẵn → for.</p>`,
+  exp:'Câu này là lý thuyết thuần: chỉ cần nêu đúng <b>3 điểm mạnh của foreach</b> (duyệt trọn, không chỉ số, không sửa) và <b>các trường hợp buộc phải dùng for</b> là đủ ý.',
+  err:'Viết chung chung "foreach ngắn hơn nên dùng" mà không nêu điều kiện. Khẳng định sai "foreach chạy nhanh hơn for".'
+},
+{
+  t:'c4', form:'Form 1', no:'Câu 50',
+  q:'Viết chương trình C# dùng do-while để yêu cầu người dùng nhập số > 0.',
+  hint:'Phải hỏi ít nhất 1 lần rồi mới kiểm tra, nên dùng do-while với điều kiện lặp lại là n <= 0.',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n;
+
+        do
+        {
+            Console.Write("Nhap n (> 0): ");
+            n = int.Parse(Console.ReadLine());
+        } while (n <= 0);      // nhập sai thì hỏi lại
+
+        Console.WriteLine("Ban da nhap: " + n);
+    }
+}`,
+  out:'Nhap n (> 0): -3\nNhap n (> 0): 0\nNhap n (> 0): 5\nBan da nhap: 5',
+  exp:'do-while hỏi ngay lần đầu rồi mới xét điều kiện, nên kể cả người dùng nhập đúng ngay thì vẫn có 1 lần hỏi. Điều kiện lặp là <code>n &lt;= 0</code> (nhập sai thì lặp lại).',
+  err:'Dùng while với biến n chưa gán giá trị → lỗi biên dịch. Quên dấu <code>;</code> sau <code>while (n &lt;= 0)</code>. Đặt điều kiện <code>n &gt; 0</code> → nhập đúng lại bị hỏi tiếp.'
+},
+
+/* ---------------- FORM 2 ---------------- */
+{
+  t:'for', form:'Form 2', no:'Câu 46',
+  q:'Viết chương trình C# in ra các số chẵn từ 1 đến 100 bằng vòng lặp for.',
+  hint:'Có 2 cách: bước nhảy i += 2 (nhanh, 50 vòng) hoặc i++ kèm if (i % 2 == 0). Nên trình bày cách 1 và nói thêm cách 2.',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Cach 1: bat dau tu 2, moi lan tang 2  -> 50 vong lap
+        for (int i = 2; i <= 100; i += 2)
+        {
+            Console.Write(i + " ");
+        }
+        Console.WriteLine();
+
+        // Cach 2: duyet 1..100 roi loc so chan -> 100 vong lap
+        // for (int i = 1; i <= 100; i++)
+        //     if (i % 2 == 0) Console.Write(i + " ");
+    }
+}`,
+  out:'2 4 6 8 ... 98 100',
+  exp:'Số chẵn bắt đầu từ 2 và cách nhau 2 đơn vị, nên chỉ cần cho <code>i</code> chạy 2, 4, 6… với bước nhảy <code>i += 2</code>. Cách này chỉ lặp 50 lần thay vì 100 lần.',
+  err:'Cho i bắt đầu từ 1 rồi i += 2 → ra số lẻ. Điều kiện <code>i &lt; 100</code> → thiếu số 100.'
+},
+{
+  t:'for', form:'Form 2', no:'Câu 47',
+  q:'Giải thích cách hoạt động của vòng lặp for lồng nhau qua ví dụ in bảng cửu chương.',
+  hint:'Vòng ngoài = bảng (2→9), vòng trong = 10 dòng của bảng đó. Nêu rõ tổng số dòng in ra = 8 × 10 = 80.',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 2; i <= 9; i++)          // vong ngoai: tung bang
+        {
+            Console.WriteLine("--- Bang " + i + " ---");
+
+            for (int j = 1; j <= 10; j++)     // vong trong: 10 dong
+            {
+                Console.WriteLine(i + " x " + j + " = " + (i * j));
+            }
+
+            Console.WriteLine();
+        }
+    }
+}`,
+  exp:'Vòng <b>ngoài</b> chạy 8 lần (i = 2…9), mỗi lần ứng với một bảng. Với <b>mỗi</b> giá trị của i, vòng <b>trong</b> chạy lại từ đầu 10 lần (j = 1…10) để in 10 phép nhân. Tổng số dòng = 8 × 10 = 80. Đây là lý do "vòng trong chạy lại toàn bộ mỗi khi vòng ngoài sang giá trị mới".',
+  err:'Cho j chạy 2…9 (ra bảng cửu chương vuông, sai yêu cầu). Quên ngoặc nhọn → chỉ dòng cuối của vòng trong được lặp. Đặt <code>Console.WriteLine</code> sai chỗ làm các bảng dính vào nhau.'
+},
+{
+  t:'for', form:'Form 2', no:'Câu 48',
+  q:'Viết chương trình sử dụng 2 vòng lặp for lồng nhau để in ra hình vuông kích thước n x n.',
+  hint:'Vòng ngoài đếm số dòng, vòng trong in n dấu * trên cùng một dòng, hết dòng thì WriteLine().',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("n = ");
+        int n = int.Parse(Console.ReadLine());
+
+        for (int i = 1; i <= n; i++)          // n dong
+        {
+            for (int j = 1; j <= n; j++)      // n dau * tren moi dong
+            {
+                Console.Write("* ");
+            }
+            Console.WriteLine();              // xuong dong sau khi het 1 dong
+        }
+    }
+}`,
+  out:'n = 4\n* * * *\n* * * *\n* * * *\n* * * *',
+  exp:'Hình vuông n × n = n dòng, mỗi dòng n ký tự. Vòng ngoài điều khiển <b>dòng</b>, vòng trong điều khiển <b>cột</b>. Dùng <code>Write</code> để in liền trên một dòng và <code>WriteLine()</code> rỗng để xuống dòng.',
+  err:'Dùng <code>WriteLine("*")</code> trong vòng trong → in thành cột dọc. Quên <code>WriteLine()</code> sau vòng trong → tất cả dồn thành 1 dòng dài.'
+},
+{
+  t:'for', form:'Form 2', no:'Câu 49',
+  q:'So sánh ưu nhược điểm giữa vòng lặp for và while trong các trường hợp cụ thể.',
+  hint:'Nêu ưu/nhược của từng vòng, rồi chốt bằng 2 ví dụ: biết số lần → for, chưa biết → while.',
+  text:`<table class="cmp">
+    <tr><th>Tiêu chí</th><th>for</th><th>while</th></tr>
+    <tr><td>Ưu điểm</td><td>Gom đủ 3 phần (khởi tạo – điều kiện – bước nhảy) ở một chỗ nên khó quên cập nhật; code gọn, dễ đọc khi biết trước số lần lặp.</td><td>Linh hoạt: điều kiện có thể phức tạp, không nhất thiết đếm số lần; thích hợp khi số vòng lặp chưa biết trước.</td></tr>
+    <tr><td>Nhược điểm</td><td>Kém linh hoạt khi điều kiện không phải phép đếm (ví dụ "lặp đến khi nhập đúng"); biến đếm chỉ dùng trong vòng lặp.</td><td>Dễ quên tăng/giảm biến điều kiện → vòng lặp vô hạn; các phần khởi tạo – điều kiện – cập nhật nằm rải rác nên khó theo dõi.</td></tr>
+    <tr><td>Nên dùng</td><td>Biết rõ số lần: in 1…100, duyệt mảng theo chỉ số, bảng cửu chương.</td><td>Chưa biết số lần: nhập đến khi hợp lệ, đọc file đến hết, tìm đến khi thấy.</td></tr>
+  </table>
+  <p style="margin:6px 0"><b>Ví dụ cụ thể:</b></p>
+  <ul class="tight">
+    <li>Tính tổng 1…100 → <b>for</b> (biết chính xác 100 vòng).</li>
+    <li>Bắt người dùng nhập mật khẩu đến khi đúng → <b>while</b> (không biết trước mấy lần).</li>
+    <li>Tính UCLN bằng thuật toán Euclid → <b>while</b> (lặp đến khi số dư = 0).</li>
+  </ul>`,
+  exp:'Câu này chấm theo ý: phải nêu được <b>ưu</b> và <b>nhược</b> của cả hai, kèm <b>ví dụ tình huống</b>. Kết luận: không có vòng nào "tốt hơn", chỉ có vòng phù hợp với bài toán.',
+  err:'Chỉ nêu ưu điểm mà không nêu nhược điểm. Khẳng định "for luôn nhanh hơn while" — sai, tốc độ phụ thuộc cách viết, không phụ thuộc loại vòng lặp.'
+},
+{
+  t:'for', form:'Form 2', no:'Câu 50',
+  q:'Viết chương trình C# sử dụng vòng for lồng nhau để in hình tam giác số.',
+  hint:'Dòng thứ i có đúng i số (1, 2, …, i). Vậy vòng trong chỉ cần chạy j từ 1 đến i.',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("n = ");
+        int n = int.Parse(Console.ReadLine());
+
+        for (int i = 1; i <= n; i++)          // dong thu i
+        {
+            for (int j = 1; j <= i; j++)      // in i so dau tien
+            {
+                Console.Write(j + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}`,
+  out:'n = 4\n1\n1 2\n1 2 3\n1 2 3 4',
+  exp:'Quy luật: dòng 1 có 1 số, dòng 2 có 2 số… dòng i có i số. Vì vậy điều kiện của vòng trong là <code>j &lt;= i</code> (phụ thuộc vòng ngoài) — đây chính là điểm khác với hình vuông (<code>j &lt;= n</code>).',
+  err:'Cho <code>j &lt;= n</code> → ra hình vuông. In <code>i</code> thay vì <code>j</code> → ra 1 / 2 2 / 3 3 3. Quên <code>WriteLine()</code> → các dòng dính nhau.'
+},
+
+/* ---------------- FORM 3 ---------------- */
+{
+  t:'c5', form:'Form 3', no:'Câu 46',
+  q:'Viết chương trình C# nhập vào 1 số nguyên, kiểm tra xem số đó là chẵn hay lẻ bằng if else.',
+  hint:'Số chẵn là số chia hết cho 2 → n % 2 == 0. Nhớ dùng == chứ không phải =.',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Nhap n: ");
+        int n = int.Parse(Console.ReadLine());
+
+        if (n % 2 == 0)
+        {
+            Console.WriteLine(n + " la so chan");
+        }
+        else
+        {
+            Console.WriteLine(n + " la so le");
+        }
+    }
+}`,
+  out:'Nhap n: 7\n7 la so le',
+  exp:'Toán tử <code>%</code> (chia lấy dư) cho phần dư của n chia 2. Dư 0 → chẵn, ngược lại → lẻ. Với số âm vẫn đúng: −3 % 2 = −1 ≠ 0 nên kết luận "lẻ".',
+  err:'Viết <code>if (n % 2 = 0)</code> → lỗi biên dịch (dấu = là gán). Dùng <code>n / 2 == 0</code> → sai bản chất (phép chia nguyên). Quên nhánh else.'
+},
+{
+  t:'c5', form:'Form 3', no:'Câu 47',
+  q:'Trình bày sự khác biệt giữa if-else và switch-case trong C#?',
+  hint:'So sánh theo 5 tiêu chí: loại điều kiện, kiểu dữ liệu, số nhánh, cách kết thúc, độ đọc hiểu.',
+  text:`<table class="cmp">
+    <tr><th>Tiêu chí</th><th>if-else</th><th>switch-case</th></tr>
+    <tr><td>Loại điều kiện</td><td>Biểu thức <b>bool</b> bất kỳ: so sánh, khoảng, kết hợp &amp;&amp; / ||</td><td>Chỉ so sánh <b>bằng</b> với một giá trị hằng cụ thể</td></tr>
+    <tr><td>Kiểu dữ liệu</td><td>Mọi kiểu (vì chỉ cần trả về bool)</td><td>Kiểu rời rạc: int, char, string, enum, bool… <b>không</b> dùng double/float</td></tr>
+    <tr><td>Số nhánh</td><td>2 nhánh / nhiều nhánh với else if</td><td>Nhiều case, gọn và dễ đọc khi có 3+ lựa chọn</td></tr>
+    <tr><td>Kết thúc nhánh</td><td>Không cần gì</td><td>Phải có <code>break</code>, nếu thiếu sẽ chạy tiếp case dưới (fall-through)</td></tr>
+    <tr><td>Nhánh mặc định</td><td><code>else</code></td><td><code>default</code></td></tr>
+    <tr><td>Phù hợp</td><td>Điều kiện phức tạp, so sánh khoảng: điểm ≥ 8, tuổi &gt; 18…</td><td>Chọn một trong nhiều giá trị: menu, mã tháng, mã lỗi…</td></tr>
+  </table>
+  <p style="margin:6px 0"><b>Ví dụ:</b> xếp loại học lực (≥ 8, ≥ 6.5…) → <b>if-else</b>; nhập tháng 1–12 in số ngày → <b>switch-case</b>.</p>`,
+  exp:'Để đủ điểm cần nêu được 3 ý cốt lõi: (1) if-else nhận <b>điều kiện bool phức tạp</b>, switch chỉ so sánh <b>bằng</b>; (2) switch <b>không nhận double/float</b>; (3) switch cần <b>break</b>, nếu không sẽ fall-through.',
+  err:'Nói "switch nhanh hơn if-else mọi trường hợp" — chỉ đúng khi nhiều nhánh rời rạc. Nói "switch dùng được với mọi kiểu dữ liệu" — sai.'
+},
+{
+  t:'c5', form:'Form 3', no:'Câu 48',
+  q:'Viết chương trình dùng switch nhập tháng (1-12) và in ra số ngày của tháng đó.',
+  hint:'Gom các tháng cùng số ngày vào chung một nhóm case (31 ngày: 1,3,5,7,8,10,12). Nhớ break và default.',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Nhap thang (1-12): ");
+        int thang = int.Parse(Console.ReadLine());
+
+        switch (thang)
+        {
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                Console.WriteLine("Thang " + thang + " co 31 ngay");
+                break;
+
+            case 4: case 6: case 9: case 11:
+                Console.WriteLine("Thang " + thang + " co 30 ngay");
+                break;
+
+            case 2:
+                Console.WriteLine("Thang 2 co 28 hoac 29 ngay");
+                break;
+
+            default:
+                Console.WriteLine("Thang khong hop le");
+                break;
+        }
+    }
+}`,
+  out:'Nhap thang (1-12): 4\nThang 4 co 30 ngay',
+  exp:'Các tháng cùng số ngày được <b>gom case</b> (viết liền nhau, không break ở giữa) để dùng chung một khối lệnh — đây là kỹ thuật quan trọng của switch. <code>default</code> xử lý trường hợp nhập ngoài 1–12.',
+  err:'Thiếu <code>break</code> → fall-through, in sai nhiều dòng. Quên <code>default</code> → nhập 13 không có phản hồi. Tách riêng 7 case 31 ngày thành 7 khối → dài dòng, dễ sai.'
+},
+{
+  t:'c5', form:'Form 3', no:'Câu 49',
+  q:'Trình bày ưu nhược điểm của switch-case so với if-else?',
+  hint:'Nêu 3 ưu điểm và 3 nhược điểm, mỗi ý kèm lý do — đừng chỉ liệt kê tên.',
+  text:`<p style="margin:6px 0"><b>Ưu điểm của switch-case:</b></p>
+  <ul class="tight">
+    <li><b>Dễ đọc, rõ ràng</b> khi có nhiều lựa chọn rời rạc (menu 1–4, mã tháng, mã lỗi) — nhìn là biết ngay từng giá trị xử lý gì.</li>
+    <li><b>Gọn hơn</b> chuỗi if-else if lặp lại cùng một biến so sánh.</li>
+    <li><b>Hiệu năng tốt</b> khi nhiều nhánh: trình biên dịch có thể tối ưu thành bảng nhảy (jump table) thay vì kiểm tra tuần tự từng điều kiện.</li>
+    <li>Gom nhiều giá trị chung một xử lý rất tự nhiên (<code>case 1: case 3: case 5:</code>).</li>
+  </ul>
+  <p style="margin:6px 0"><b>Nhược điểm của switch-case:</b></p>
+  <ul class="tight">
+    <li>Chỉ so sánh <b>bằng</b> — không làm được điều kiện khoảng (<code>diem &gt;= 8</code>) hay điều kiện phức tạp (<code>a &gt; b &amp;&amp; c &lt; d</code>).</li>
+    <li><b>Không dùng</b> với double/float/decimal.</li>
+    <li>Dễ lỗi nếu <b>quên break</b> (fall-through chạy tiếp case dưới).</li>
+    <li>Kém linh hoạt: mỗi case chỉ là một hằng số, không biểu thức.</li>
+  </ul>
+  <p style="margin:6px 0"><b>Kết luận:</b> nhiều giá trị cụ thể → switch; điều kiện phức tạp/khoảng → if-else.</p>`,
+  exp:'Câu này gần giống câu 47 nhưng nghiêng về <b>đánh giá</b>: phải nêu cả ưu và nhược, mỗi ý có lý do. Nhắc được "fall-through khi thiếu break" và "không dùng với double" là hai ý ăn điểm.',
+  err:'Chỉ nêu ưu điểm (thiếu nhược). Viết "switch nhanh hơn if-else" mà không nói điều kiện áp dụng (chỉ khi nhiều nhánh rời rạc).'
+},
+{
+  t:'c5', form:'Form 3', no:'Câu 50',
+  q:'Viết đoạn chương trình phân loại học lực dựa trên điểm trung bình: >=8 Giỏi, >=6.5 Khá, >=5 Trung bình, <5 Yếu (dùng if else).',
+  hint:'Xét từ cao xuống thấp và dùng else if — nếu xét từ thấp lên, mọi điểm ≥ 5 sẽ rơi vào "Trung bình".',
+  code:`using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Nhap diem trung binh: ");
+        // Nhập 7,5 (dấu phẩy) vẫn đọc được
+        double dtb = double.Parse(Console.ReadLine().Replace(',', '.'));
+
+        if (dtb >= 8)
+        {
+            Console.WriteLine("Gioi");
+        }
+        else if (dtb >= 6.5)
+        {
+            Console.WriteLine("Kha");
+        }
+        else if (dtb >= 5)
+        {
+            Console.WriteLine("Trung binh");
+        }
+        else
+        {
+            Console.WriteLine("Yeu");
+        }
+    }
+}`,
+  out:'Nhap diem trung binh: 6.8\nKha',
+  exp:'Dùng <b>else if</b> và xét <b>từ cao xuống thấp</b>: khi đã trượt mốc 8 mới xét mốc 6.5, nên không cần viết lại cận dưới (6.5 ≤ điểm &lt; 8). Đây là cách viết chuẩn, tránh lặp điều kiện.',
+  err:'Xét từ thấp lên (<code>if (dtb &gt;= 5)</code> trước) → điểm 9 vẫn ra "Trung binh". Dùng 4 lệnh <code>if</code> riêng rẽ → in nhiều dòng. Quên <code>Replace</code> khi nhập 7,5 → chương trình báo lỗi định dạng.'
+}
+];
+
+/* =========================================================
+   TIỆN ÍCH DÙNG CHUNG
+   ========================================================= */
+const LTR = ['A','B','C','D','E'];
+const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+const KW = 'int|long|double|float|char|bool|string|var|void|class|static|if|else|for|while|do|foreach|in|switch|case|break|default|continue|return|new|true|false|null|Console|Math';
+function hl(code){
+  const e = t => t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const re = new RegExp('(\\/\\/[^\\n]*)|("(?:[^"\\\\]|\\\\.)*")|\\b(' + KW + ')\\b|\\b(\\d+)\\b','g');
+  let out = '', last = 0, m;
+  while((m = re.exec(code))){
+    out += e(code.slice(last, m.index));
+    const cls = m[1] ? 'cm' : m[2] ? 'st' : m[3] ? 'kw' : 'nm';
+    out += '<span class="' + cls + '">' + e(m[0]) + '</span>';
+    last = re.lastIndex;
+  }
+  return out + e(code.slice(last));
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+/* =========================================================
+   MODULE 1 — TRẮC NGHIỆM
+   ========================================================= */
+(function(){
+  const $ = s => document.querySelector(s);
+  const KEY = 'quiz-c45-v3';
+  const st = { filter:'all', answers:{}, order:null, tips:true };
+
+  try{
+    const s = JSON.parse(localStorage.getItem(KEY) || '{}');
+    if(s && typeof s === 'object') st.answers = s;
+  }catch(e){ st.answers = {}; }
+
+  const listEl = document.getElementById('mc-list');
+
+  function filtered(){
+    let arr = BANK.map((q,i) => ({q, i}));
+    if(st.filter === 'wrong'){
+      arr = arr.filter(x => st.answers[x.i] !== undefined && st.answers[x.i] !== x.q.a);
+    } else if(st.filter !== 'all'){
+      arr = arr.filter(x => x.q.t === st.filter || (st.filter === 'trace' && x.q.tr));
+    }
+    if(st.order) arr.sort((p,n) => st.order.indexOf(p.i) - st.order.indexOf(n.i));
+    return arr;
+  }
+
+  function cardHTML(item, pos){
+    const q = item.q, id = item.i;
+    const picked = st.answers[id];
+    const answered = picked !== undefined;
+    const correct = answered && picked === q.a;
+    let h = '<article class="q' + (answered ? (correct ? ' ok' : ' no') : '') + '" data-id="' + id + '">';
+    h += '<div class="qhead"><span class="num">Câu ' + pos + '</span>';
+    h += '<span class="badge">' + (q.t === 'c4' ? 'Chương 4 · Vòng lặp' : q.t === 'c5' ? 'Chương 5 · Rẽ nhánh' : 'Vòng lặp for') + '</span>';
+    if(q.tr) h += '<span class="badge tr">Truy vết</span>';
+    h += '</div>';
+    h += '<div class="qtext">' + esc(q.q) + '</div>';
+    if(q.c) h += '<pre class="code">' + hl(q.c) + '</pre>';
+    const tip = TIPS[id];
+    if(tip) h += '<div class="tip"><span class="bulb">💡</span><span><b>Mẹo:</b> ' + esc(tip) + '</span></div>';
+    h += '<div class="opts">';
+    q.o.forEach((txt, k) => {
+      let oc = 'opt';
+      if(answered){
+        oc += ' done';
+        if(k === q.a) oc += ' right';
+        else if(k === picked) oc += ' wrong';
+        else oc += ' dim';
+      }
+      h += '<button class="' + oc + '" data-o="' + k + '"' + (answered ? ' aria-disabled="true"' : '') + '>';
+      h += '<span class="ltr">' + LTR[k] + '</span><span class="txt">' + esc(txt) + '</span>';
+      if(answered && k === q.a) h += '<span class="mark">✓</span>';
+      if(answered && k === picked && k !== q.a) h += '<span class="mark">✗</span>';
+      h += '</button>';
+    });
+    h += '</div>';
+    if(answered){
+      h += '<div class="exp ' + (correct ? 'good' : 'bad') + '">';
+      h += '<div class="hd">' + (correct ? '✓ Chính xác!' : '✗ Chưa đúng — đáp án đúng là ' + LTR[q.a] + '. ' + esc(q.o[q.a])) + '</div>';
+      h += '<p>' + esc(q.e) + '</p></div>';
+    }
+    h += '</article>';
+    return h;
+  }
+
+  function render(){
+    const list = filtered();
+    listEl.innerHTML = list.length
+      ? list.map((it, k) => cardHTML(it, k + 1)).join('')
+      : '<div class="empty">🎉 Không có câu nào ở mục này. Hãy chọn bộ lọc khác hoặc làm lại từ đầu.</div>';
+    updateStats();
+  }
+
+  function updateStats(){
+    const total = BANK.length;
+    const ids = Object.keys(st.answers);
+    let ok = 0;
+    ids.forEach(id => { if(st.answers[id] === BANK[id].a) ok++; });
+    const done = ids.length, no = done - ok;
+
+    document.getElementById('mc-done').textContent = 'Đã làm ' + done + '/' + total;
+    document.getElementById('mc-ok').textContent = 'Đúng ' + ok;
+    document.getElementById('mc-no').textContent = 'Sai ' + no;
+    document.getElementById('mc-pct').innerHTML = '<b>' + (done ? Math.round(ok / done * 100) : 0) + '%</b> chính xác';
+    document.getElementById('mc-bar').style.width = (done / total * 100) + '%';
+
+    const set = (k, v) => { const el = document.querySelector('[data-cnt="' + k + '"]'); if(el) el.textContent = v; };
+    set('all', total);
+    set('c4', BANK.filter(q => q.t === 'c4').length);
+    set('c5', BANK.filter(q => q.t === 'c5').length);
+    set('for', BANK.filter(q => q.t === 'for').length);
+    set('trace', BANK.filter(q => q.tr).length);
+    set('wrong', BANK.filter((q, i) => st.answers[i] !== undefined && st.answers[i] !== q.a).length);
+  }
+
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(st.answers)); }catch(e){} }
+
+  function pick(card, optIdx){
+    const id = +card.dataset.id;
+    if(st.answers[id] !== undefined) return;
+    const q = BANK[id];
+    st.answers[id] = optIdx;
+    save();
+
+    const isRight = optIdx === q.a;
+    card.classList.add(isRight ? 'ok' : 'no');
+    if(!isRight){ card.classList.add('shake'); setTimeout(() => card.classList.remove('shake'), 400); }
+
+    card.querySelectorAll('.opt').forEach(btn => {
+      const k = +btn.dataset.o;
+      btn.classList.add('done');
+      btn.setAttribute('aria-disabled', 'true');
+      if(k === q.a){ btn.classList.add('right'); btn.insertAdjacentHTML('beforeend', '<span class="mark">✓</span>'); }
+      else if(k === optIdx){ btn.classList.add('wrong'); btn.insertAdjacentHTML('beforeend', '<span class="mark">✗</span>'); }
+      else { btn.classList.add('dim'); }
+    });
+
+    const exp = document.createElement('div');
+    exp.className = 'exp ' + (isRight ? 'good' : 'bad');
+    exp.innerHTML = '<div class="hd">' + (isRight ? '✓ Chính xác!' : '✗ Chưa đúng — đáp án đúng là ' + LTR[q.a] + '. ' + esc(q.o[q.a])) + '</div><p>' + esc(q.e) + '</p>';
+    card.appendChild(exp);
+    updateStats();
+  }
+
+  listEl.addEventListener('click', e => {
+    const btn = e.target.closest('.opt');
+    if(!btn) return;
+    const card = btn.closest('.q');
+    if(!card || card.querySelector('.exp')) return;
+    pick(card, +btn.dataset.o);
+  });
+
+  document.querySelectorAll('#view-mc .chip[data-f]').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('#view-mc .chip[data-f]').forEach(x => x.classList.remove('on'));
+      c.classList.add('on');
+      st.filter = c.dataset.f;
+      render();
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  document.getElementById('mc-shuffle').addEventListener('click', () => {
+    if(st.order){ st.order = null; toast('Đã trả về thứ tự gốc'); }
+    else {
+      const idx = BANK.map((_, i) => i);
+      for(let i = idx.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [idx[i], idx[j]] = [idx[j], idx[i]];
+      }
+      st.order = idx; toast('Đã trộn ' + idx.length + ' câu');
+    }
+    render();
+  });
+
+  document.getElementById('mc-reset').addEventListener('click', () => {
+    if(!Object.keys(st.answers).length){ toast('Chưa có gì để làm lại'); return; }
+    if(!confirm('Xoá toàn bộ câu trả lời trắc nghiệm và làm lại từ đầu?')) return;
+    st.answers = {}; st.order = null; save();
+    document.querySelectorAll('#view-mc .chip[data-f]').forEach(x => x.classList.remove('on'));
+    document.querySelector('#view-mc .chip[data-f="all"]').classList.add('on');
+    st.filter = 'all';
+    render();
+    toast('Đã làm mới phần trắc nghiệm');
+  });
+
+  const tipBtn = document.getElementById('mc-tips');
+  function setTips(on){
+    st.tips = on;
+    document.body.classList.toggle('hidetips', !on);
+    tipBtn.textContent = on ? '💡 Mẹo: Bật' : '💡 Mẹo: Tắt';
+    tipBtn.classList.toggle('on', on);
+    try{ localStorage.setItem(KEY + '-tips', on ? '1' : '0'); }catch(e){}
+  }
+  tipBtn.addEventListener('click', () => setTips(!st.tips));
+  try{ setTips((localStorage.getItem(KEY + '-tips') || '1') !== '0'); }catch(e){ setTips(true); }
+
+  document.addEventListener('keydown', e => {
+    if(document.getElementById('view-mc').hidden) return;
+    if(e.target.matches('input,textarea')) return;
+    let k = -1;
+    const key = e.key.toLowerCase();
+    if(key.length === 1 && 'abcd'.includes(key)) k = 'abcd'.indexOf(key);
+    else if('1234'.includes(key)) k = +key - 1;
+    if(k < 0) return;
+
+    const cards = [...listEl.querySelectorAll('.q')].filter(c => !c.querySelector('.exp'));
+    if(!cards.length) return;
+    const mid = window.innerHeight / 2;
+    let best = null, dist = 1e9;
+    cards.forEach(c => {
+      const r = c.getBoundingClientRect();
+      if(r.bottom < 0 || r.top > window.innerHeight) return;
+      const d = Math.abs((r.top + r.bottom) / 2 - mid);
+      if(d < dist){ dist = d; best = c; }
+    });
+    if(!best) return;
+    const opt = best.querySelectorAll('.opt')[k];
+    if(opt){ e.preventDefault(); pick(best, k); }
+  });
+
+  /* bảng đáp án nhanh */
+  (function buildKey(){
+    const groups = [
+      ['Form 1 · while / do-while / foreach', 'c4'],
+      ['Form 3 · if-else / switch-case', 'c5'],
+      ['Form 2 · vòng lặp for', 'for']
+    ];
+    let html = '';
+    groups.forEach(([name, t]) => {
+      let n = 0, items = '';
+      BANK.forEach(q => {
+        if(q.t !== t) return;
+        n++;
+        items += '<span class="kitem"><i>' + n + '</i>' + LTR[q.a] + '</span>';
+      });
+      html += '<h3>' + name + ' (' + n + ' câu)</h3><div class="kgrid">' + items + '</div>';
+    });
+    const box = document.getElementById('keyGrid');
+    if(box) box.innerHTML = html;
+  })();
+
+  render();
+})();
+
+/* =========================================================
+   MODULE 2 — TỰ LUẬN
+   ========================================================= */
+(function(){
+  const KEY = 'quiz-tuluan-v1';
+  const st = { filter:'all', answers:{}, done:{}, open:{} };
+
+  try{
+    const s = JSON.parse(localStorage.getItem(KEY) || '{}');
+    if(s.answers) st.answers = s.answers;
+    if(s.done) st.done = s.done;
+  }catch(e){}
+
+  const listEl = document.getElementById('tl-list');
+
+  function save(){
+    try{ localStorage.setItem(KEY, JSON.stringify({answers: st.answers, done: st.done})); }catch(e){}
+  }
+
+  function cardHTML(it, pos){
+    const id = it._id;
+    const val = st.answers[id] || '';
+    const isDone = !!st.done[id];
+    const opened = !!st.open[id];
+    let h = '<article class="q' + (isDone ? ' done' : '') + '" data-id="' + id + '">';
+    h += '<div class="qhead"><span class="num">Câu ' + pos + '</span>';
+    h += '<span class="badge">' + it.form + '</span><span class="badge org">' + it.no + '</span></div>';
+    h += '<div class="qtext">' + esc(it.q) + '</div>';
+    h += '<div class="hint"><span>💡</span><span><b>Gợi ý:</b> ' + esc(it.hint) + '</span></div>';
+    h += '<label class="lbl" for="ta' + id + '">Bài làm của bạn</label>';
+    h += '<textarea id="ta' + id + '" data-ta="' + id + '" placeholder="Viết code C# hoặc dàn ý câu trả lời...">' + esc(val) + '</textarea>';
+    h += '<div class="row">';
+    h += '<button class="btn" data-act="toggle" data-id="' + id + '">' + (opened ? 'Ẩn bài giải mẫu' : 'Xem bài giải mẫu') + '</button>';
+    h += '<label class="chk"><input type="checkbox" data-done="' + id + '"' + (isDone ? ' checked' : '') + '> Đã làm được</label>';
+    h += '<span class="cnt" data-cnt="' + id + '">' + val.length + ' ký tự</span>';
+    h += '</div>';
+    h += '<div class="sol"' + (opened ? '' : ' hidden') + '>';
+    h += '<div class="solhd">✓ Bài giải mẫu<button class="copy" data-copy="' + id + '">Sao chép</button></div>';
+    if(it.code){
+      h += '<pre class="code">' + hl(it.code) + '</pre>';
+      if(it.out) h += '<div class="out"><b>Kết quả chạy thử:</b>\n' + esc(it.out) + '</div>';
+    } else {
+      h += '<div class="soltext">' + it.text + '</div>';
+    }
+    h += '<p class="solnote">' + it.exp + '</p>';
+    h += '<p class="err"><b>⚠️ Lỗi thường gặp: </b>' + it.err + '</p>';
+    h += '</div></article>';
+    return h;
+  }
+
+  function filtered(){
+    let arr = ESSAY.map((q, i) => ({q, i}));
+    if(st.filter !== 'all') arr = arr.filter(x => x.q.t === st.filter);
+    return arr;
+  }
+
+  function render(){
+    const list = filtered();
+    listEl.innerHTML = list.length
+      ? list.map((x, k) => cardHTML(x.q, k + 1)).join('')
+      : '<div class="empty">Không có câu nào ở mục này.</div>';
+    list.forEach(x => autosize(document.getElementById('ta' + x.q._id)));
+    updateStats();
+  }
+
+  function autosize(ta){
+    if(!ta) return;
+    ta.style.height = 'auto';
+    ta.style.height = Math.max(110, ta.scrollHeight + 2) + 'px';
+  }
+
+  function updateStats(){
+    const total = ESSAY.length;
+    const wrote = ESSAY.filter(q => (st.answers[q._id] || '').trim().length > 0).length;
+    const done = ESSAY.filter(q => st.done[q._id]).length;
+    document.getElementById('tl-write').textContent = 'Đã viết ' + wrote + '/' + total;
+    document.getElementById('tl-done').textContent = 'Hoàn thành ' + done + '/' + total;
+    document.getElementById('tl-pct').innerHTML = '<b>' + Math.round(done / total * 100) + '%</b> tiến độ';
+    document.getElementById('tl-bar').style.width = (done / total * 100) + '%';
+  }
+
+  listEl.addEventListener('input', e => {
+    const ta = e.target.closest('textarea[data-ta]');
+    if(!ta) return;
+    const id = ta.dataset.ta;
+    st.answers[id] = ta.value;
+    const c = document.querySelector('[data-cnt="' + id + '"]');
+    if(c) c.textContent = ta.value.length + ' ký tự';
+    autosize(ta);
+    clearTimeout(window._svTl);
+    window._svTl = setTimeout(() => { save(); updateStats(); }, 350);
+  });
+
+  listEl.addEventListener('change', e => {
+    const cb = e.target.closest('input[data-done]');
+    if(!cb) return;
+    const id = cb.dataset.done;
+    st.done[id] = cb.checked;
+    cb.closest('.q').classList.toggle('done', cb.checked);
+    save(); updateStats();
+  });
+
+  listEl.addEventListener('click', e => {
+    const btn = e.target.closest('button[data-act="toggle"]');
+    if(btn){
+      const id = btn.dataset.id;
+      const card = btn.closest('.q');
+      const sol = card.querySelector('.sol');
+      st.open[id] = sol.hidden;
+      sol.hidden = !sol.hidden;
+      btn.textContent = sol.hidden ? 'Xem bài giải mẫu' : 'Ẩn bài giải mẫu';
+      return;
+    }
+    const cp = e.target.closest('button[data-copy]');
+    if(cp){
+      const id = cp.dataset.copy;
+      const item = ESSAY.find(q => q._id === id);
+      const txt = item.code || (item.text ? item.text.replace(/<[^>]+>/g,'').replace(/\n\s+/g,'\n').trim() : '');
+      navigator.clipboard.writeText(txt).then(() => toast('Đã sao chép bài giải')).catch(() => toast('Không sao chép được'));
+    }
+  });
+
+  document.querySelectorAll('#view-tl .chip[data-f]').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('#view-tl .chip[data-f]').forEach(x => x.classList.remove('on'));
+      c.classList.add('on');
+      st.filter = c.dataset.f;
+      render();
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  const openAllBtn = document.getElementById('tl-openall');
+  openAllBtn.addEventListener('click', () => {
+    const anyClosed = ESSAY.some(q => !st.open[q._id]);
+    ESSAY.forEach(q => st.open[q._id] = anyClosed);
+    render();
+    openAllBtn.textContent = anyClosed ? 'Ẩn tất cả bài giải' : 'Mở tất cả bài giải';
+    toast(anyClosed ? 'Đã mở tất cả bài giải' : 'Đã ẩn tất cả bài giải');
+  });
+
+  document.getElementById('tl-download').addEventListener('click', () => {
+    let txt = 'BÀI LÀM TỰ LUẬN — CHƯƠNG 4 & 5 (C#)\n';
+    txt += 'Ngày: ' + new Date().toLocaleString('vi-VN') + '\n';
+    txt += '='.repeat(60) + '\n\n';
+    ESSAY.forEach((q, i) => {
+      txt += '[' + (i + 1) + '] ' + q.form + ' — ' + q.no + '\n';
+      txt += 'Đề: ' + q.q + '\n';
+      txt += 'Bài làm:\n' + ((st.answers[q._id] || '').trim() || '(chưa làm)') + '\n';
+      txt += (st.done[q._id] ? '[x]' : '[ ]') + ' Đã làm được\n';
+      txt += '-'.repeat(60) + '\n\n';
+    });
+    const blob = new Blob([txt], {type:'text/plain;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'Bai-lam-tu-luan-Ch4-5.txt';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    toast('Đã tải bài làm');
+  });
+
+  document.getElementById('tl-reset').addEventListener('click', () => {
+    if(!confirm('Xoá toàn bộ bài làm tự luận và trạng thái hoàn thành?')) return;
+    st.answers = {}; st.done = {}; st.open = {};
+    save(); render(); toast('Đã xoá bài làm tự luận');
+  });
+
+  ESSAY.forEach((q, i) => q._id = String(i));
+  render();
+})();
+
+/* =========================================================
+   TABS + THEME
+   ========================================================= */
+(function(){
+  const tabs = [...document.querySelectorAll('.tab')];
+  const views = { mc: document.getElementById('view-mc'), tl: document.getElementById('view-tl') };
+
+  function show(v){
+    if(!views[v]) v = 'mc';
+    Object.keys(views).forEach(k => views[k].hidden = (k !== v));
+    tabs.forEach(t => t.classList.toggle('on', t.dataset.view === v));
+    try{ localStorage.setItem('quiz-tab', v); }catch(e){}
+    window.scrollTo({top:0});
+  }
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.view)));
+
+  /* số câu trên tab luôn lấy từ dữ liệu thật */
+  const tabMc = document.querySelector('.tab[data-view="mc"] span');
+  const tabTl = document.querySelector('.tab[data-view="tl"] span');
+  if(tabMc) tabMc.textContent = BANK.length;
+  if(tabTl) tabTl.textContent = ESSAY.length;
+
+  let start = 'mc';
+  try{ start = localStorage.getItem('quiz-tab') || 'mc'; }catch(e){}
+  show(start);
+
+  const btn = document.getElementById('btnTheme');
+  function applyTheme(t){
+    if(t) document.documentElement.setAttribute('data-theme', t);
+    else document.documentElement.removeAttribute('data-theme');
+    btn.textContent = (t === 'dark') ? '☀️' : '🌙';
+    try{ localStorage.setItem('quiz-theme', t || ''); }catch(e){}
+  }
+  let saved = '';
+  try{ saved = localStorage.getItem('quiz-theme') || ''; }catch(e){}
+  applyTheme(saved || null);
+
+  btn.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>
